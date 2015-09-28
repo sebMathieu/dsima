@@ -1,0 +1,176 @@
+#columnCenter,#columnRight
+{
+	position:absolute;
+	height:100%;
+	top:;
+	display:block;
+	padding:0;
+	margin:1em 0;
+}
+
+#columnCenter
+{
+	left:3%;
+	width:61%;
+	text-align:center;
+}
+
+#columnRight
+{
+	left:67%;
+	width:30%;
+	overflow-y:auto;
+	overflow-x:visible;
+}
+
+.largeImageWrapper 
+{
+	height:92%;
+	width:100%;
+	overflow:scroll;
+	padding:0;
+	margin:0 auto;
+}
+
+.largeImage
+{
+	margin:1em;
+}
+
+.infoBox 
+{
+    font-size: 1em;
+	width:100%;
+	height:90%;
+	text-align:left;
+	margin:0;
+	padding:0;
+}
+
+#popupBox
+{
+	margin:2em;
+	display:block;
+	text-align:left;
+	position:absolute;
+	overflow:hidden;
+	color:#aaa;
+}
+
+#timeline {
+	font-size:small;
+	padding:0;
+	margin:0;
+	position:absolute; 
+	bottom:1em;
+	width:100%;
+	text-align:center;
+}
+
+#timeline a, .backLink {
+	margin:0;
+	color:black;
+	border:1px solid #ccc;
+	padding:0.25em 0.25em;
+	background-color:#fff;
+	cursor: pointer;
+}
+
+.backLink{
+	float:right;
+	margin-top:0.5em;
+}
+
+#timeline a:hover, .backLink:hover {
+	text-decoration:none;
+	background-color:#aaa;
+}
+
+#timeline .activeLink {
+	color:white;
+	background-color:#333;
+	box-shadow:0.15em 0.15em 0.15em #333;
+}
+
+#timeline #periodLink_0 {
+	padding:0 1em;
+	border-radius: 0.5em;
+}
+
+.externalElementLink {
+  display:inline-block;
+	color:black;
+	border:1px solid #ccc;
+	border-radius:0.25em;
+	padding:0.1em 0.5em;
+	background-color:#fff;
+  margin:0.25em -0.75em 0.25em 1.5em;
+}
+
+.externalElementLink:hover {
+	text-decoration:none;
+	background-color:#eee;
+}
+
+.smallChart {
+	width:95%;
+	height:17.5em;
+	background-color:#ccc;
+}
+
+.fullScreen { 
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1000;
+	background:white;
+	margin:0;
+	padding:0;
+}
+
+#imageFullScreenLink {
+	right:5%;
+}
+
+#imageSVGLink, #imageFullScreenLink {
+	padding:0;
+	font-size:0.5em;
+	margin:0;
+	border:none;
+	position:absolute;
+	bottom:0.5em;
+}
+
+#imageFullScreenLink {
+	right:1em;
+}
+#imageSVGLink {
+	right:3em;
+}
+
+.removeButton {
+	padding:0 0.1em;
+}
+
+#chartContainer {
+	width:95%;
+	height:95%;
+	padding:0;
+	margin:0;
+	position:absolute;
+	left:2.5%;
+	top:2.5%;
+}
+
+.rightSpan {
+	position:relative;
+	float:right;
+	margin-right:1em;
+	margin-bottom:1em;
+}
+
+#rightBox th,#rightBox td {
+	text-align: right;
+}

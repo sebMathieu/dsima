@@ -1,0 +1,1 @@
+dot -Tsvg example-graph.gv -o example-image.svg

@@ -1,0 +1,69 @@
+/**
+\mainpage
+DSIMA is an open-source testbed to simulate interaction models governing the exchange of flexibility services located within a distribution network. The testbed is an agent-based system in which the distribution system operator, the transmission system operator, producers and retailers takes their decisions based on mixed-integer linear programs. This testbed helps to highlight the characteristics of an interaction model, its benefits for the agents and ease the detection of unwanted or abuse behaviors which decreases the welfare. The testbed is implemented in Python and the optimization problem are encoded in the modeling language ZIMPL. A web interface is coupled with an instance generator using macroscopic parameters of the system such as the total power production. This tested is therefore well suited to test the implemented interaction models on various scenarios and extend the implementation to other models. 
+
+Note that the software is written using Python 3 and, following the way you install python, you may need to use the commands
+	
+	python3 instead of python
+	pip3 instead of pip
+
+To function properly, you need to install Python 3, place a SCIP binary compiled with ZIMPL next to simulator/main.py and install two Python packages using the commands:
+
+	pip install asyncio
+	pip install websockets
+
+Client
+======
+The client is an HTML5 webpage which can be opened by any webnavigator supporting the technology.
+The entry point of the client is the webpage index.html in the root folder.
+
+The navigator Firefox is recommended even though any HTML5 compliant navigator can be used. 
+Due to different point of view of security implementation only the Firefox navigator can access to a locally created server.
+
+The client needs to connect to a server whose location should be specified in the "Server" tab of the webpage.
+
+Server
+======
+The server translate the requests of the client and use the instance generator or the simulator.
+Its entry point is server.py in the root folder. It can be executed with the commands
+
+	python server.py [host port]
+	python server.py -d
+
+The first one starts a  server at the address ws://host:port/. The default values are localhost:8000.
+The second starts a server with the default ip adresse of the machine.
+
+The server requires Python 3 and the asyncio and websockets modules. These two modules can be installed using pip in function of your Python installation by typing the following commands in a terminal:
+	
+	pip install asyncio
+	pip install websockets
+
+Instance generator
+===================
+The instance generator create instances from macroscopic parameters given in XML files. One example can be found in instanceGenerator/example.xml. Its entry point is instanceGenerator/main.py.
+
+	python main.py instanceParameters.xml [outputDirectory]
+
+If no output directory is given, the generator creates a folder whose name is given by the hash given in the XML file.
+
+Simulator
+==========
+The simulator takes as input an instance and generate an output xml file with the results.
+It's entry point is simulator/main.py.
+It requires Python 3 and the SCIP binary compiled with ZIMPL next to simulator/main.py.
+
+The simulator is executed with the command
+	
+	python main.py [options] dataFolder
+
+where the options are:
+
+	-d                      Debug mode.
+	-l                      Producer a log file.
+	-o X                    Set X.log and X.xml as output file.
+	--maxiterations X       Set X as the maximum number of iterations.
+	-t X                    Set the numerical tolerance for the convergence to X.
+	-f X                    Set X as the operation folder
+			
+**/
+			

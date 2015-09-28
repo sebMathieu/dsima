@@ -1,0 +1,10 @@
+# File with for each node of the network an indicator of the available flexibility.
+# N
+6
+# n, d^+, d^-
+0,0.01,0.01
+1,1000,1000
+2,1000,1000
+3,1000,1000
+4,1.0,1.0
+5,1.0,1.0

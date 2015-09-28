@@ -1,0 +1,7 @@
+# File with the TSO parameters.
+# T, pi^S+, pi^S-
+3, 45.0, -45.0
+# t, R+, R-, E
+1,4,-4,0.5
+2,4,-4,0
+3,4,-4,-1

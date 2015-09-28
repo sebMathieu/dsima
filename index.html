@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>DSIMA - Distribution System Interaction Model Analysis</title>
+	<link rel="stylesheet" href="webinterface/style.css">
+	<link rel="stylesheet" href="webinterface/svgXmlDisplay.css">
+	<script src="webinterface/libraries/canvasjs.min.js"></script>
+	<script src="webinterface/libraries/jquery-2.1.1.min.js"></script>
+	<script src="webinterface/libraries/humanize-duration.min.js"></script>
+	<script src="webinterface/libraries/jszip.min.js"></script>
+	<script src="webinterface/general.js"></script>
+	<script src="webinterface/instance.js"></script>
+	<script src="webinterface/svgXmlDisplay.js"></script>
+	<script src="webinterface/globalresults.js"></script>
+	<script src="webinterface/client.js"></script>
+</head>
+<body>
+	<div id="loading"><div id="loadingContent">Loading ...</div></div>
+	<div class="content">
+		<div class="nav">
+		<h1>DSIMA</h1>
+		<ul class='tabs'>
+			<li><a href="#instanceContent" id="instanceTabLink">Instance</a><select id="instanceSelect"><option value="loading">Loading...</option></select></li>
+			<li><a href="#serverContent" id="serverTabLink">Server</a></li>
+			<li id="progressTab"><a href="#progressContent" id="progressTabLink">Progress</a></li>
+			<li id="globalResultsTab"><a href="#globalResultsContent" id="globalResultsTabLink">Global results</a></li>
+			<li id="dailyResultsTab"><a href="#dailyResultsContent">Daily results</a></li>
+			<li id="aboutTab"><a href="#aboutContent">About</a></li>
+		</ul>
+		</div>
+	
+		<div class="subcontent" id="instanceContent">
+			<object id="instancePicture" data="" type="image/svg+xml"></object>
+			<form name="instanceForm" id="instanceForm">
+				<a class="deleteButton" id="instanceDelete"></a>
+				<h2>Parameters</h2>
+				<table class="formTable">
+					<tr id="generationDateLine" style="display:none;"><th>Date</th><td colspan="2"><output id="generationDateOutput"></output></td></tr>
+					<tr><th>Title</th><td colspan="2"><input type="text" name="title" /></td></tr>
+					<tr><th>Network</th><td colspan="2"><select name="network" id="networkSelect"></select></td></tr>
+					
+					<tr><th rowspan="4">Production</th><td><input type="number" name="meanProduction" step="any"/></td><td class="unit">MW mean</td></tr>
+					<tr><td><input type="number" name="maxProduction" step="any"/></td><td class="unit">MW max</td></tr>
+					<tr><td><input type="number" name="flexProduction" step="any" min="0" max="100"/></td><td class="unit">% of flexibility</td></tr>
+					<tr><td><input type="number" name="costProduction" step="any"/></td><td class="unit">&#8364;/MWh cost</td></tr>
+					
+					<tr><th rowspan="4">Consumption</th><td><input type="number" name="meanConsumption" step="any"/></td><td class="unit">MW mean</td></tr>
+					<tr><td><input type="number" name="maxConsumption" step="any"/></td><td class="unit">MW max</td></tr>
+					<tr><td><input type="number" name="flexConsumption" step="any" min="0" max="100"/></td><td class="unit">% of flexibility</td></tr>
+					<tr><td><input type="number" name="benefitsConsumption" step="any"/></td><td class="unit">&#8364;/MWh benefits</td></tr>
+					
+					<tr><th rowspan="2">Energy prices</th><td><input type="number" name="meanPrice" step="any"/></td><td class="unit">&#8364;/MWh mean</td></tr>
+					<tr><td><input type="number" name="maxPrice" step="any"/></td><td class="unit">&#8364;/MWh max</td></tr>
+					
+					<tr><th>Day</th><td colspan="2"><input type="number" name="dayStart" min="1" max="365" step="1" class="shortInput"/> to <input type="number" class="shortInput" name="dayEnd" min=1 max=365 step=1/></td></tr>
+				
+					<tr><th>Interaction Model</th><td colspan="2"><select name="interactionModelSelect"></select></td></tr>
+				</table>
+				
+				<input type="button" class="button big" id="generateInstance" value="Generate" disabled="disabled"/>
+				<input type="button" class="button big" id="simulateInstance" value="Simulate" disabled="disabled"/>
+				<input type="button" class="button big" id="resetInstance" value="Reset" disabled="disabled"/>
+				
+				<a href="#interactionModelParameters" class="toggler">Interaction model parameters</a>
+				<table class="formTable" id="interactionModelParameters">
+					<tr><th>Grid access restriction</th><td colspan="2"><select name="accessRestriction" id="accessRestriction">
+						<option value="conservative">conservative</option>
+						<option value="flexible">flexible</option>
+						<option value="dynamic">Dynamic</option>
+						<option value="dynamicBaseline">Dynamic baseline</option>
+						<option value="none">none</option>
+					</select></td></tr>
+					<tr><th>Access bounds computation type</th><td colspan="2">
+						<select name="accessBoundsComputation" id="accessBoundsComputation">
+							<option value="horizon">Daily</option>
+							<option value="installed">Yearly</option>
+						</select>
+					</td></tr>
+					<tr><th>DSO is a FSU</th><td colspan="2">
+						<select name="DSOIsFSU" id="DSOIsFSU">
+							<option value="true">True</option>
+							<option value="false">False</option>
+						</select>
+					</td></tr>
+					<tr><th>Flexibility cost for the DSO</th><td colspan="2">
+						<select name="DSOFlexCost" id="DSOFlexCost">
+							<option value="normal">Normal</option>
+							<option value="imbalance">Imbalance</option>
+							<option value="full">Full</option>
+						</select>
+					</td></tr>
+					<tr><th>DSO imbalance price ratio</th><td><input type="number" name="DSOImbalancePriceRatio" id="DSOImbalancePriceRatio" step="any" min="0" value="1"/></td><td class="unit"></td></tr>
+					<tr><th>Production flexibility obligations ratio</th><td><input type="number" name="productionFlexObligations" id="productionFlexObligations" step="any" min="0" value="0" max="1"/></td><td class="unit"></td></tr>
+					<tr><th>Consumption flexibility obligations ratio</th><td><input type="number" name="consumptionFlexObligations" id="consumptionFlexObligations" step="any" min="0" value="0" max="1"/></td><td class="unit"></td></tr>
+					<tr><th>Relative deviation from the baselines</th><td><input type="number" name="relativeDeviation" id="relativeDeviation" step="any" min="0" value="0.1"/></td><td class="unit"></td></tr>
+				</table>
+				
+				<a href="#additionalParameters" class="toggler">Additional parameters</a>
+				<table class="formTable" id="additionalParameters">
+					<tr><th>Periods</th><td colspan="2"><input type="number" name="periods" min="1" max="96"/></td></tr>
+					<tr><th>Number of producers</th><td colspan="2"><input type="number" name="producersNumber" min="1" step="1"/></td></tr>
+					<tr><th>Producers external imbalance</th><td><input type="number" name="producersExternalImbalance" min="0" max="100" step="any"/></td><td class="unit">% of the mean production</td></tr>
+					<tr><th>Number of retailers</th><td colspan="2"><input type="number" name="retailersNumber" min="1" step="1"/></td></tr>
+					<tr><th>Retailers external imbalance</th><td><input type="number" name="retailersExternalImbalance" min="0" max="100" step="any"/></td><td class="unit">% of the mean consumption</td></tr>
+					<tr><th>Retailers flexibility reservation cost</th><td><input type="number" name="retailersFlexReservationCost" step="any"/></td><td class="unit">&#8364;/MWh</td></tr>
+					<tr><th>TSO flexibility request</th><td><input type="number" name="tsoFlexibilityRequest" min="0" step="any" /></td><td class="unit">MW</td></tr>
+					<tr><th>TSO reservation price</th><td><input type="number" name="tsoReservationPrice" min="0" step="any" /></td><td class="unit">&#8364;/MWh</td></tr>
+					<tr id="hashLine"><th>Hash</th><td colspan="2" id="hashField"></td></tr>
+					<tr id="statusLine"><th>Status</th><td colspan="2" id="statusField"></td></tr>
+					<tr><th>Description</th><td colspan="2"><textarea rows="3" name="description"></textarea></td></tr>
+				</table>
+			</form>
+			
+		</div>
+		
+		<div class="subcontent" id="serverContent">
+			<h2>Server</h2>
+			<form name="clientForm" id="clientForm">
+				<table class="formTable">
+					<tr><th>Server</th><td><input type="text" name="server" id="server"/></td></tr>
+					<tr><th>Simulation computation</th><td><span id="simulationComputationStatus" class="unknownStatus"></span></td></tr>
+				</table>
+				<input type="button" class="button big" id="connectionButton" value="Connect"/>
+				<input type="button" class="button big" id="disconnectRunButton" value="Disconnect &amp; Run"/>
+			</form>
+			<h2>Information log</h2>
+			<output id="logOutput" class="console"></output>
+		</div>
+		
+		<div class="subcontent" id="progressContent">
+			<div id="jobProgressStatus">
+			</div>
+			<div class="progressBar">
+				<progress id="progressBar" value="0" max="1.0"></progress>
+				<div class="progressBarText" id="progressText">0 %</div>
+			</div>
+			<div id="progressAdditionalInformations">
+			</div>
+		</div>
+		
+		<div class="subcontent" id="globalResultsContent">
+		</div>
+		
+		<div class="subcontent" id="dailyResultsContent">
+			<h2>Results of day <select id="dayResultsSelect"></select><input type="button" class="button" id="getDailyResultButton" value="Get"/></h2>
+			<div id="columnCenter">
+				<div id="popupBox"></div>
+				<div class="largeImageWrapper">
+				<object id="xmlImage" class="largeImage" data="" type="image/svg+xml"></object>
+				</div>
+				<div id="timeline"></div>
+			</div>
+			<div id="columnRight">
+				<div id="rightBox" class="infoBox"></div>
+			</div>
+		</div>
+
+		<div class="subcontent" id="aboutContent">
+			<p class="notice">
+			This engine for the quantitative analysis of regulatory frameworks in distribution networks has been created within the framework of the <a href="https://gredor.be/"><b>GREDOR</b> project</a>, supported by the <b>public service of Wallonia - Department of Energy and Sustainable Building</b>.
+			</p>
+			<div class="logoList">
+				<img src="webinterface/logo/logoGredor.png"/>
+				<img src="webinterface/logo/logoWallonia.png"/>
+				<img src="webinterface/logo/logoDgo4.png"/>
+				<img src="webinterface/logo/logoULg.png"/>
+			</div>
+
+			<h2>Contributors</h2>
+			<table class="contributors">
+				<thead>
+					<tr><th>Name</th><th>Affiliation</th><th>Logo</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>S&#233;bastien MATHIEU</td><td>University of Li&#232;ge</td><td><img class="logo" src="webinterface/logo/logoULg.png"></td></tr>
+					<tr><td>Bertrand CORN&#201;LUSSE</td><td>University of Li&#232;ge</td><td><img class="logo" src="webinterface/logo/logoULg.png"></td></tr>
+					<tr><td>Quentin LOUVEAUX</td><td>University of Li&#232;ge</td><td><img class="logo" src="webinterface/logo/logoULg.png"></td></tr>
+					<tr><td>Damien ERNST</td><td>University of Li&#232;ge</td><td><img class="logo" src="webinterface/logo/logoULg.png"></td></tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+	<div class="footer">
+	Version 0.4
+	</div>
+</body>
+</html>

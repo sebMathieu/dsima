@@ -1,0 +1,32 @@
+graph example {
+graph [splines=line,outputorder=edgesfirst]
+
+/* Create buses */
+BUS0 [id="BUS0",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="0",fontsize=10];
+BUS1 [id="BUS1",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="1",fontsize=10];
+BUS2 [id="BUS2",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="2",fontsize=10];
+BUS3 [id="BUS3",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="3",fontsize=10];
+BUS4 [id="BUS4",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="4",fontsize=10];
+BUS5 [id="BUS5",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="5",fontsize=10];
+
+/* Link buses */
+edge [penwidth=2,tailclip=false];
+BUS0 -- BUS1 [id="LINE1",label="     .     ",fontsize=10];
+BUS1 -- BUS2 [id="LINE2",label="     .     ",fontsize=10];
+BUS1 -- BUS3 [id="LINE3",label="     .     ",fontsize=10];
+BUS3 -- BUS4 [id="LINE4",label="     .     ",fontsize=10];
+BUS3 -- BUS5 [id="LINE5",label="     .     ",fontsize=10];
+
+/* Create and link generators */
+GEN1 [id="GEN1",label="~", shape=circle, style=bold, fixedsize=true, penwidth=2, width=0.2, height=0.2,fontsize=18,portPos=n];
+BUS2 -- GEN1;
+GEN2 [id="GEN2",label="~", shape=circle, style=bold, fixedsize=true, penwidth=2, width=0.2, height=0.2,fontsize=18,portPos=n];
+BUS4 -- GEN2;
+
+/* Create and link loads */
+LOAD1 [id="LOAD1",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS4 -- LOAD1;
+LOAD2 [id="LOAD2",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS5 -- LOAD2;
+
+}

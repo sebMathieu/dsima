@@ -1,0 +1,7 @@
+# File with energy and imbalance prices.
+# T, EPS, pi^l, Hours by period
+3, 0.001, 100, 1
+# t, pi^E, pi^I+, pi^I-
+1,45,75,75
+2,55,75,75
+3,50,75,75

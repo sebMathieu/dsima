@@ -1,0 +1,15 @@
+# File with the parameters of the interaction model.
+#  Set the type of cost for flexibility of the DSO. The implemented modes are: "imbalance","normal","full"
+DSOFlexCost,normal
+# DSO is a FSU
+DSOIsFSU,True
+# Production flexibility obligations ratio.
+productionFlexObligations,0.0
+# Consumption flexibility obligations ratio.
+consumptionFlexObligations,0.0
+# Ratio of the imbalance price that is paid by the DSO.
+DSOImbalancePriceRatio,1.0 
+# Restricted access to the DSO network following the access agreement step of the DSO. Choices: none, conservative or flexible.
+accessRestriction,conservative
+# Access bounds computation type. Choices: horizon or installed
+accessBoundsComputation,horizon

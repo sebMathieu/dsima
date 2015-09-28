@@ -1,0 +1,48 @@
+<xml>
+	<hash>8a5d7e2b</hash>
+	<date>Wed, 14 Jan 2015 15:03:54 GMT</date>
+	<title>Example</title>
+	<description>
+
+	</description>
+	<network>example</network>
+	<periods>24</periods>
+	<producers>1</producers>
+	<retailers>1</retailers>
+	<production>
+		<mean>12.5</mean>
+		<max>50</max>
+		<flexibility>1</flexibility>
+		<costs>-45</costs>
+		<externalimbalance>0.01</externalimbalance>
+	</production>
+	<consumption>
+		<mean>5</mean>
+		<max>9.2</max>
+		<flexibility>0.2</flexibility>
+		<benefits>60.5</benefits>
+		<externalimbalance>0.01</externalimbalance>
+		<flexreservationcost>5</flexreservationcost>
+	</consumption>
+	<prices>
+		<mean>47.45</mean>
+		<max>82.3</max>
+	</prices>
+	<days>
+		<start>42</start>
+		<end>43</end>
+	</days>
+	<tso>
+		<flexibilityrequest>3</flexibilityrequest>
+		<reservationprice>45</reservationprice>
+	</tso>
+	<im>
+		<parameter id="accessRestriction">flexible</parameter>
+		<parameter id="prequalificationTimeWindow">installed</parameter>
+		<parameter id="DSOIsFSU">true</parameter>
+		<parameter id="DSOFlexCost">normal</parameter>
+		<parameter id="DSOImbalancePriceRatio">100</parameter>
+		<parameter id="productionFlexObligations">0</parameter>
+		<parameter id="consumptionFlexObligations">0</parameter>
+	</im>
+</xml>
