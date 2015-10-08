@@ -9,7 +9,6 @@ set Ts := {1..T};
 
 param fromBus[Ls] := read "network.csv" as "<1n> 2n" skip 1 use Lines comment "#";
 param toBus[Ls] := read "network.csv" as "<1n> 3n" skip 1 use Lines comment "#";
-param b[Ls] := read "network.csv" as "<1n> 5n" skip 1 use Lines comment "#";
 param C[Ls] := read "network.csv" as "<1n> 6n" skip 1 use Lines comment "#";
 
 param dP[Ns] := read "qualified-flex.csv" as "<1n> 2n" skip 1 use N comment "#";

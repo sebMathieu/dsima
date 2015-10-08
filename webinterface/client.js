@@ -3,7 +3,7 @@
 */
 
 /** Server adress. */
-var server="ws://139.165.16.33:8000/"; // ws://localhost:8000/
+var server="ws://localhost:9000/";
 /** Current websocket. */
 var websocket = null;
 
@@ -413,7 +413,9 @@ function instanceGeneration(h) {
 		else {
 			log("Unknown problem in the instance generation process. Message: \n\t"+h.message);
 			processFinished=true;
-			disconnect();
+
+			// Reload instance
+			requestHandlers.push({handler:getInstance,hash:hash});
 			callNextRequest();
 		}
 	}

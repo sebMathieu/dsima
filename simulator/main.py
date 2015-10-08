@@ -33,8 +33,6 @@ def main(argv):
 			outputSolutionFile=arg
 		elif opt in ("-d"):
 			options.DEBUG=True
-		elif opt in ("--gamma"):
-			options.DSO_IMBALANCE_PRICE_RATIO=float(arg)
 		elif opt in ("--maxiterations"):
 			maximumIterations=max(1,int(arg))
 		elif opt in ("-t"):
@@ -60,10 +58,10 @@ def displayHelp():
 	text="Usage :\n\tpython main.py [options] dataFolder\n\n"
 	text+="Options:\n"
 	text+="\t-d\t\t\tDebug mode.\n"
-	text+="\t-o X\t\t\tSet X.xml as output file.\n" #TODO If explicitely .xml or .xml.zip 
+	text+="\t-o X\t\t\tSet X as xml output file.\n"
 	text+="\t--maxiterations X\tSet X as the maximum number of iterations.\n"
 	text+="\t-t X\t\t\tSet the numerical tolerance for the convergence to X.\n"
-	text+="\t-f X\t\t\tSet X as the operation folder" 
+	text+="\t-f X\t\t\tSet X as the operation folder"
 	tools.log(text,options.LOG,options.PRINT_TO_SCREEN)
 	
 # Starting point from python #   

@@ -7,7 +7,6 @@ set Ls := {1..L};
 
 param fromBus[Ls] := read "network.csv" as "<1n> 2n" skip 1 use L comment "#";
 param toBus[Ls] := read "network.csv" as "<1n> 3n" skip 1 use L comment "#";
-param b[Ls] := read "network.csv" as "<1n> 5n" skip 1 use L comment "#";
 param C[Ls] := read "network.csv" as "<1n> 6n" skip 1 use L comment "#";
 
 param p[Ns] := read "baselines.dat" as "<1n> 2n" skip 1 use N comment "#";

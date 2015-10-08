@@ -11,7 +11,7 @@ from server.isinterface import compute as simulationCompute
 ## Server location.
 host='localhost'
 ## Server port.
-port=8000
+port=9000
 
 ## Display the help of the server.
 def displayHelp():

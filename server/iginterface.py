@@ -75,11 +75,11 @@ def computationThread(job):
 @asyncio.coroutine
 def interact(client):
 	# Agree to receive the instance parameters and waits
-	yield from client.socket.send("OK instance generation request")
+	yield from client.socket.send("ok instance generation request")
 	xmlParameters=yield from client.socket.recv()	
 	if xmlParameters is None:
 		return
-	yield from client.socket.send("OK instance received")
+	yield from client.socket.send("ok instance received")
 	client.log("\n"+xmlParameters)
 
 	# Start the instance generation thread
@@ -107,12 +107,12 @@ def interact(client):
 			# Check status
 			if job.finished.locked():
 				if job.status==Job.RUNNING:
-					yield from client.socket.send("OK running \"%s\""%hash)
+					yield from client.socket.send("ok running \"%s\""%hash)
 				else:
-					yield from client.socket.send("OK waiting \"%s\""%hash)
+					yield from client.socket.send("ok waiting \"%s\""%hash)
 			else:
 				if job.status==Job.COMPLETED:
-					yield from client.socket.send("OK instance generated \"%s\""%hash)
+					yield from client.socket.send("ok instance generated \"%s\""%hash)
 				else:
 					raise Exception(job.result)
 				break

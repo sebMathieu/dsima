@@ -9,7 +9,6 @@ param piTd := read "network.csv" as "4n" use 1 comment "#";
 
 param fromBus[Ls] := read "network.csv" as "<1n> 2n" skip 1 use L comment "#";
 param toBus[Ls] := read "network.csv" as "<1n> 3n" skip 1 use L comment "#";
-param b[Ls] := read "network.csv" as "<1n> 5n" skip 1 use L comment "#";
 param C[Ls] := read "network.csv" as "<1n> 6n" skip 1 use L comment "#";
 
 param T := read "baselines-full.dat" as "2n" use 1 comment "#";

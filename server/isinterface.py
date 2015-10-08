@@ -238,7 +238,12 @@ def computationThread(job):
 			
 		# Change the status and manage errors
 		if len(errors) > 0:
-			job.result="%s/%s"%(len(errors),totalInstances)
+			if totalInstances == 1 and len(errors)==1:
+				# If only one instance gives the full error
+				job.result="error instance simulation 1/1 :\n\tcmd:\n%s\n\t\n\tstderr:\n%s\n"%(errors[0]['cmd'],errors[0]['stderr'])
+			else:
+				# Display the number of errors
+				job.result="%s/%s"%(len(errors),totalInstances)
 			statusTag.text="error instance simulation %s"%job.result
 			job.status=Job.ERROR
 			
@@ -332,14 +337,14 @@ def interact(client,message):
 			# Check status
 			if job.finished.locked():
 				if job.status==Job.RUNNING:
-					yield from client.socket.send("OK running %s"%job.result)
+					yield from client.socket.send("ok running %s"%job.result)
 				else:
-					yield from client.socket.send("OK waiting")
+					yield from client.socket.send("ok waiting")
 			else:
 				if job.status==Job.COMPLETED:
-					yield from client.socket.send("OK instance simulated")
+					yield from client.socket.send("ok instance simulated")
 				else:
-					yield from client.socket.send("ERROR instance simulation %s"%job.result)
+					yield from client.socket.send("error instance simulation %s"%job.result)
 				break
 		else:
 			yield from client.handleMessage(message)

@@ -12,7 +12,7 @@ class ScipSolver(Solver):
 	# @param lp Binary equal to True if the solver writes the LP problem file.
 	# @param timeLimit Time limit in seconds
 	# @param maxTrials Maximum calling trials of the solver.
-	def __init__(self,scipBin='../scip',lp=False,timeLimit=5*60,maxTrials=2):
+	def __init__(self,scipBin='scip',lp=False,timeLimit=5*60,maxTrials=2):
 		self._sol={}
 		self.lp=lp
 		self._scip=scipBin
