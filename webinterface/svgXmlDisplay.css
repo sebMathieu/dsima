@@ -94,9 +94,22 @@
 	box-shadow:0.15em 0.15em 0.15em #333;
 }
 
-#timeline #periodLink_0 {
+#generalViewLink {
 	padding:0 1em;
 	border-radius: 0.5em;
+}
+
+#periodSlider {
+	display: inline-block;
+	margin-bottom: -.8em;
+	height: 2.2em;
+	width: 50%;
+	border:none;
+}
+
+#periodOutput {
+	display: inline;
+	margin-left: 1em;
 }
 
 .externalElementLink {

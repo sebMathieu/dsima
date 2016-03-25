@@ -350,14 +350,14 @@ function associate(element, xmlData) {
 function changeTime(newt) {
 	$('#loading').show(0);
 
-	// Deactivate the old period
-	if (t >= 0) {
-		document.getElementById("periodLink_"+t).className="inactiveLink";
-	}
-
 	// Set the new active period
 	t=newt;
-	document.getElementById("periodLink_"+t).className="activeLink";
+	if (t == 0){
+		$('#periodOutput').html('General view');
+	}
+	else {
+		$('#periodOutput').html('Period ' + t);
+	}
 
 	// Build the new display
 	buildDisplay();
@@ -389,15 +389,12 @@ function buildTimeline() {
 	t=1;
 
 	// Create the html content
-	var content='<a class="inactiveLink" id="periodLink_0" onClick="changeTime(0)">General view</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Period : ';
-
-	for (var tau = 1; tau <= T; tau++) {
-		content+='<a class="inactiveLink" id="periodLink_'+tau+'" onClick="changeTime('+tau+')" >'+tau+'</a>';
-	}
-
-	content+='<a href="#" onClick="displayFullscreen(\'image\')" id="imageFullScreenLink">F</a><a href="#" id="imageSVGLink">SVG</a>';
+	content = '<input id="periodSlider" type="range" min="0" max="'+T+'" step="1" value="0"/>';
+	content += '<div id="periodOutput">General view</div>'
+	content += '<a href="#" onClick="displayFullscreen(\'image\')" id="imageFullScreenLink">F</a><a href="#" id="imageSVGLink">SVG</a>';
 
 	$(div).html(content);
+	$("#periodSlider").on("change", function(){changeTime(this.value)});
 }
 
 /**
