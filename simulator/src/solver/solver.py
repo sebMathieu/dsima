@@ -19,12 +19,12 @@ class Solver(object):
 
 	## Raise an exception if method isOptimal returns false.
 	def checkOptimal(self):
-		if (not self.isOptimal()):
+		if not self.isOptimal():
 			raise Exception("Problem not solved to optimality:\n\tModel: %s\n\tSolution file: %s\n%s\n" % (self.lastModel,self.lastSolution,self.debugInfo))
 	
 	## Raise an exception if method isFeasible returns false.
 	def checkFeasible(self):
-		if (not self.isFeasible()):
+		if not self.isFeasible():
 			raise Exception("Solution is not feasible:\n\tModel: %s\n\tSolution file: %s\n%s\n" % (self.lastModel,self.lastSolution,self.debugInfo))
 	
 	## Return true if the solution is optimal.

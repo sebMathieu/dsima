@@ -4,7 +4,7 @@ var globalResults=null;
 /** List of global attributes to display.*/
 var globalAttributes=["Welfare",
 			"",
-			"Shedding costs",
+			"Protections cost",
 			"DSOs costs",
 			"TSOs surplus",
 			"Producers surplus",
@@ -63,6 +63,9 @@ function displayGlobalResults(xmlData) {
 			xmlElement=$(xmlDoc).find('> attributes > attribute[id="'+a+'"]')[0];
 			if (a === "Welfare"){
 				htmlContent+='<tr class="highlight">';
+			}
+			else if (a === "Protections cost" && xmlElement === undefined) { // Retrocompatibility
+				xmlElement=$(xmlDoc).find('> attributes > attribute[id="Shedding costs"]')[0];
 			}
 			else{
 				htmlContent+='<tr>';

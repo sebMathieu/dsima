@@ -111,6 +111,7 @@ def interact(client):
 				else:
 					yield from client.socket.send("ok waiting \"%s\""%hash)
 			else:
+				thread.join()
 				if job.status==Job.COMPLETED:
 					yield from client.socket.send("ok instance generated \"%s\""%hash)
 				else:
@@ -118,4 +119,5 @@ def interact(client):
 				break
 		else:
 			yield from client.handleMessage(message)
+
 	

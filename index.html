@@ -6,8 +6,8 @@
 	<link rel="icon" type="image/png" href="webinterface/icon.png">
 	<link rel="stylesheet" href="webinterface/style.css">
 	<link rel="stylesheet" href="webinterface/svgXmlDisplay.css">
-	<script src="webinterface/libraries/canvasjs.min.js"></script>
-	<script src="webinterface/libraries/jquery-2.1.1.min.js"></script>
+	<script src="webinterface/libraries/jquery-2.1.4.min.js"></script>
+	<script src="webinterface/libraries/jquery.canvasjs.min.js"></script>
 	<script src="webinterface/libraries/humanize-duration.min.js"></script>
 	<script src="webinterface/libraries/jszip.min.js"></script>
 	<script src="webinterface/general.js"></script>
@@ -99,6 +99,12 @@
 				
 				<a href="#additionalParameters" class="toggler">Additional parameters</a>
 				<table class="formTable" id="additionalParameters">
+					<tr><th>Power flow method</th><td colspan="2">
+						<select name="opfMethod" id="opfMethod">
+							<option value="networkFlow" default>Network flow</option>
+							<option value="linearOpf">Linear optimal power flow</option>
+						</select>
+					</td></tr>
 					<tr><th>Periods</th><td colspan="2"><input type="number" name="periods" min="1" max="96"/></td></tr>
 					<tr><th>Number of producers</th><td colspan="2"><input type="number" name="producersNumber" min="1" step="1"/></td></tr>
 					<tr><th>Producers external imbalance</th><td><input type="number" name="producersExternalImbalance" min="0" max="100" step="any"/></td><td class="unit">% of the mean production</td></tr>
@@ -184,7 +190,7 @@
 		</div>
 	</div>
 	<div class="footer">
-	Version 1.2
+	Version 2.0
 	</div>
 </body>
 </html>

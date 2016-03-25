@@ -1,0 +1,50 @@
+graph example {
+graph [splines=line,outputorder=edgesfirst]
+
+/* Create buses */
+BUS0 [id="BUS0",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="0",fontsize=10];
+BUS1 [id="BUS1",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="1",fontsize=10];
+BUS2 [id="BUS2",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="2",fontsize=10];
+BUS3 [id="BUS3",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="3",fontsize=10];
+BUS4 [id="BUS4",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="4",fontsize=10];
+BUS5 [id="BUS5",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="5",fontsize=10];
+BUS6 [id="BUS6",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="6",fontsize=10];
+BUS7 [id="BUS7",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="7",fontsize=10];
+BUS8 [id="BUS8",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="8",fontsize=10];
+BUS9 [id="BUS9",label="",shape=box, style=filled, color="#000000", fixedsize=true,width=0.5,height=0.075, xlabel="9",fontsize=10];
+
+/* Link buses */
+edge [penwidth=2,tailclip=false];
+BUS0 -- BUS1 [id="LINE1",label="     .     ",fontsize=10];
+BUS1 -- BUS2 [id="LINE2",label="     .     ",fontsize=10];
+BUS2 -- BUS3 [id="LINE3",label="     .     ",fontsize=10];
+BUS3 -- BUS4 [id="LINE4",label="     .     ",fontsize=10];
+BUS4 -- BUS5 [id="LINE5",label="     .     ",fontsize=10];
+BUS5 -- BUS6 [id="LINE6",label="     .     ",fontsize=10];
+BUS6 -- BUS7 [id="LINE7",label="     .     ",fontsize=10];
+BUS7 -- BUS8 [id="LINE8",label="     .     ",fontsize=10];
+BUS8 -- BUS9 [id="LINE9",label="     .     ",fontsize=10];
+
+/* Create and link generators */
+GEN1 [id="GEN1",label="~", shape=circle, style=bold, fixedsize=true, penwidth=2, width=0.2, height=0.2,fontsize=18,portPos=n];
+BUS1 -- GEN1;
+
+/* Create and link loads */
+LOAD1 [id="LOAD1",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS2 -- LOAD1;
+LOAD2 [id="LOAD2",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS3 -- LOAD2;
+LOAD3 [id="LOAD3",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS4 -- LOAD3;
+LOAD4 [id="LOAD4",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS5 -- LOAD4;
+LOAD5 [id="LOAD5",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS6 -- LOAD5;
+LOAD6 [id="LOAD6",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS7 -- LOAD6;
+LOAD7 [id="LOAD7",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS8 -- LOAD7;
+LOAD8 [id="LOAD8",label="", shape=invtriangle, style=filled, color="#000000", fixedsize=true, penwidth=2, width=0.2, height=0.2,portPos=n];
+BUS9 -- LOAD8;
+
+}

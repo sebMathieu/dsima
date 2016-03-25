@@ -1,0 +1,18 @@
+# Data generated: 22-Oct-2014 17:51:36
+# Total number of nodes
+10
+# Consumption nodes, Total power
+8,10
+# Node, Distribution
+2,0.125
+3,0.125
+4,0.125
+5,0.125
+6,0.125
+7,0.125
+8,0.125
+9,0.125
+# Production nodes, Total power
+1,5
+# Node, Distribution
+1,1.0

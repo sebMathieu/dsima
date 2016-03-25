@@ -3,7 +3,7 @@
 */
 
 /** Server adress. */
-var server="ws://localhost:9000/";
+var server="ws://localhost:8000/";
 /** Current websocket. */
 var websocket = null;
 
@@ -76,7 +76,7 @@ function onMessage(evt) {
 
 		// Clean message
 		if (!(message === undefined) && (typeof message === 'string' || message instanceof String)) {
-			message=message.trim().toLowerCase();
+			message=message.trim();
 		}
 		isHandlerProcessing=true;
 		handler=nextHandlers.shift();
@@ -422,6 +422,7 @@ function instanceGeneration(h) {
 	else {
 		log("Unknown problem in the instance generation process. Message: \n\t"+h.message);
 		processFinished=true;
+		disconnect();
 	}
 
 	if (processFinished) {
@@ -468,15 +469,33 @@ function listGeneratedInstances(h) {
 
 		// Create an option for each generated instance
 		if (h.message !== "") {
+			// Prepare the list of instances
+			instancesList=[];
 			$(h.message.split("\n")).each(function() {
 				var args=this.split(";");
+				instancesList.push({hash:args[0],name:args[1]});
+			});
+			instancesList.sort(function(a, b){
+				// Put empty messages at the end
+				if (a.name === "" && b.name === "")
+					return 0;
+				else if (a.name === "")
+					return 1;
+				else if (b.name === "")
+					return -1;
+				else
+					return a.name.localeCompare(b.name); 
+			});
+
+			// Create options
+			$(instancesList).each(function() {
 				option = document.createElement('option');
-				option.value=args[0];
-				if (args[1] !== "") {
-					option.text = args[0] + " - " + args[1];
+				option.value=this.hash;
+				if (this.name !== "") {
+					option.text = this.hash + ": " + this.name;
 				}
 				else {
-					option.text = args[0];
+					option.text = this.hash;
 				}
 				selectElement.add(option);
 			});
@@ -572,7 +591,7 @@ function getDailyResult(h) {
 		reader.addEventListener("loadend", function() {
 			log('Daily result instance "'+h.hash+'" day "'+h.day+'" obtained.');
 			var zip = new JSZip(reader.result);
-			var xmlContent=zip.file(/.xml$/)[0].asText();
+			var xmlContent=zip.file(/\.xml$/)[0].asText();
 			displayXML(xmlContent);
 			$('#loading').hide();
 		});

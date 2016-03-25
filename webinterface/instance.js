@@ -4,7 +4,7 @@
 
 // General parameters
 /** List of available network names. */
-var networks=["bus75","example","example2","ylpic"];
+var networks=["bus75","example","example2","ylpic","feeder"];
 /** Predefined interaction models parameters. */
 var interactionModels=[
 {name:"Unrestricted", accessRestriction:"none", accessBoundsComputation:"installed", DSOIsFSU:false, DSOFlexCost:"normal",DSOImbalancePriceRatio:100,productionFlexObligations:0,consumptionFlexObligations:0,relativeDeviation:0.1},
@@ -115,6 +115,14 @@ function loadXMLInstance(xmlData) {
 		form.tsoFlexibilityRequest.value=tsoTag.find('flexibilityrequest').text();
 		form.tsoReservationPrice.value=tsoTag.find('reservationprice').text();
 
+		// OPF method
+		var opfMethod=xml.find("opfMethod").text();
+		if (opfMethod.toLowerCase() === "linearopf")
+			form.opfMethod.value="linearOpf";
+		else
+			form.opfMethod.value="networkFlow";
+
+
 		// interaction model
 		im=xml.find("im");
 		$(im).children().each(function() {
@@ -143,6 +151,9 @@ function loadXMLInstance(xmlData) {
 			requestHandlers.push({handler:getGlobalResults,hash:hash});
 			callNextRequest();
 		}
+
+		// Clean daily results
+		displayXML();
 	}
 }
 
@@ -204,6 +215,8 @@ function buildXMLInstance() {
 	request+='\t<flexibilityrequest>'+form.tsoFlexibilityRequest.value+'</flexibilityrequest>\n';
 	request+='\t<reservationprice>'+form.tsoReservationPrice.value+'</reservationprice>\n';
 	request+='</tso>\n';
+
+	request+='<opfMethod>'+form.opfMethod.value+'</opfMethod>';
 
 	request+='<im>\n';
 	// Iterate over the parameters of the interaction model.

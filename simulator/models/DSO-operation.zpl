@@ -18,18 +18,19 @@ param EPS := read "baselines-full.dat" as "5n" use 1 comment "#";
 param p[Ns*Ts] := read "baselines-full.dat" as "<1n,2n> 3n" skip 1 use (N*T) comment "#";
 
 # Variables
-var f[Ls*Ts] >= -infinity;
-var fr[Ls*Ts] >= -infinity;
-var theta[Ns*Ts] >= -infinity;
-var z[Ns*Ts] binary;
+var f[<line,t> in Ls*Ts] >= -C[line]-EPS <= C[line]+EPS ;
 var r0[Ts] >= -infinity;
-var r0r[Ts] >= -infinity;
 
+var fr[Ls*Ts] >= -infinity;
+var r0r[Ts] >= -infinity;
+var flowViolation[Ls*Ts] >= 0;
+
+var z[Ns*Ts] binary;
 var trippingCost[Ns*Ts] >= 0;
 
 # Objective
 minimize Costs: 
-	sum <n,t> in Ns*Ts : trippingCost[n,t];
+	sum <n,t> in Ns*Ts : trippingCost[n,t] + sum <line,t> in Ls*Ts : EPS*flowViolation[line,t];
 
 # Constraints
 subto TrippingCostProductionDefinition:
@@ -39,14 +40,6 @@ subto TrippingCostProductionDefinition:
 subto TrippingCostConsumptionDefinition:
 	forall <n,t> in Ns*Ts :
 		trippingCost[n,t]>=z[n,t]*piTd*dt*(-p[n,t]);
-
-subto LineCapaUp:
-	forall <line,t> in Ls*Ts : 
-		f[line,t] <= C[line]*1.01;
-
-subto LineCapaDown:
-	forall <line,t> in Ls*Ts : 
-		-C[line]*1.01 <= f[line,t];
 
 subto ObservedProductionNode:
 	forall <n,t> in Ns*Ts :
@@ -60,5 +53,13 @@ subto RealProductionNode:
 		(1-z[n,t])*p[n,t]
 		+ if (n == 0) then r0[t] else 0*r0[t] end
 		== sum <line> in Ls : if (fromBus[line] == n) then f[line,t] else 0*f[line,t] end
-		- sum <line> in Ls : if (toBus[line] == n) then f[line,t] else 0*f[line,t] end;				
+		- sum <line> in Ls : if (toBus[line] == n) then f[line,t] else 0*f[line,t] end;	
+
+subto FlowViolationUp:
+	forall <line,t> in Ls*Ts:
+		fr[line,t] <= C[line] + flowViolation[line,t];			
+		
+subto FlowViolationDown:
+	forall <line,t> in Ls*Ts:
+		fr[line,t] >= -C[line] - flowViolation[line,t];
 		

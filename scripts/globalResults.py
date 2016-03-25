@@ -4,7 +4,7 @@ Scripts that create an xml file with the global results
 
 ## List of attributes to display in the global results.
 attributes={"Welfare":{"unit":"&#8364;"},
-			"Shedding costs":{"unit":"&#8364;"},
+			"Protections cost":{"unit":"&#8364;"},
 			"DSOs costs":{"unit":"&#8364;"},
 			"TSOs surplus":{"unit":"&#8364;"},
 			"Producers surplus":{"unit":"&#8364;"},
@@ -23,7 +23,7 @@ dayData={"Welfare":{"unit":"&#8364;"},
 		 "Time":{"unit":"s"},
 		 "Iterations":{"unit":''},
 		 "DSOs costs":{"unit":"&#8364;"},
-		 "Shedding costs":{"unit":"&#8364;"},
+		 "Protections cost":{"unit":"&#8364;"},
 		 "TSOs surplus":{"unit":"&#8364;"},
 		 "Producers surplus":{"unit":"&#8364;"},
 		 "Retailers surplus":{"unit":"&#8364;"},

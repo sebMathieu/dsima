@@ -131,7 +131,6 @@ input:hover, select:hover {
 .button {
 	display:inline-block;
 	font-size: 0.95em;
-	background-color: #43BFF0;
 	color: white;
 	text-decoration: none;
 	font-weight: 700;
@@ -231,10 +230,11 @@ input:hover, select:hover {
 }
 
 #instanceSelect {
+	font-family: "Lucida Console", Monospace;
 	display:inline-block;
 	position:relative;
-	font-size:0.7em;
-	width:8em;
+	font-size:0.75em;
+	width:10em;
 	height:2em;
 	border-radius: 0.5em;
 	background: transparent;
@@ -313,7 +313,6 @@ input:hover, select:hover {
 	text-align:center;
 	
 }
-
 
 .deleteButton {
 	float:right;

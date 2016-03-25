@@ -15,6 +15,7 @@ from .interactionmodel import InteractionModel
 from .quantitativecriteria import QuantitativeCriteria
 from . import options,tools,xmlsolution
 from .solver.scipsolver import ScipSolver
+from .solver.cplexsolver import CplexSolver
 
 ## Class that generates the system from a data folder.
 # The system class defines the following global data:
@@ -50,8 +51,14 @@ class System(StateSystem):
 		self._readGeneralData()
 		
 		# Instantiate solver
-		self.data.general['solver']=ScipSolver(lp=options.DEBUG)
-		
+		if options.SOLVER == 'cplex':
+			self.data.general['solver']=CplexSolver(lp=options.DEBUG)
+
+			if options.DEBUG:
+				tools.log("Solve using CPLEX.", options.LOG, options.PRINT_TO_SCREEN)
+		else:
+			self.data.general['solver']=ScipSolver(lp=options.DEBUG)
+
 		# Create the quantifier
 		quantifier=QuantitativeCriteria()
 		

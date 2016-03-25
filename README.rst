@@ -60,7 +60,8 @@ The simulator is executed with the command
 where the options are:
 
   -d                      Debug mode.
-  -o X                    Set X as output file. If X ends with .zip, provides a compressed xml file.
   --maxiterations X       Set X as the maximum number of iterations.
+  -l                      Perform linear AC optimal power flows.
+  -o X                    Set X as output file, compressed if X ends with .zip.
   -t X                    Set the numerical tolerance for the convergence to X.
   -f X                    Set X as the operation folder

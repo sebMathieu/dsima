@@ -4,7 +4,7 @@
 from .bid import Bid, BidRequest
 from . import options
 
-# Request of a energy constrained bid.
+## Request of a energy constrained bid.
 class ECBidRequest(BidRequest):
     ## Constructor
     # @param bid Corresponding bid.

@@ -39,7 +39,7 @@ param mB[Bs] := read "spBids.dat" as "<1n> 6n" skip 1 use B comment "#";
 param MB[Bs] := read "spBids.dat" as "<1n> 7n" skip 1 use B comment "#";
 
 # Variables
-var f[Ls*Ts] >= -infinity;
+var f[<line,t> in Ls*Ts] >= -C[line] <= C[line];
 var r[Ns*Ts] >= -infinity;
 var I[Ts] >= -infinity;
 var IP[Ts] >=0;
@@ -72,14 +72,6 @@ subto TrippingCostProductionDefinition:
 subto TrippingCostConsumptionDefinition:
 	forall <n,t> in Ns*Ts :
 		trippingCost[n,t]>=z[n,t]*piTd*dt*(-p[n,t]);
-		
-subto LineCapaUp:
-	forall <line,t> in Ls*Ts : 
-		f[line,t] <= C[line];
-
-subto LineCapaDown:
-	forall <line,t> in Ls*Ts : 
-		-C[line] <= f[line,t];
 
 subto FlexActivation:
 	forall <n,t> in N0*Ts :

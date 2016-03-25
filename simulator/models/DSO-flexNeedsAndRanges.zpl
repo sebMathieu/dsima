@@ -26,6 +26,7 @@ param L[Ns] := read "baselines.dat" as "<1n> 3n" skip 1+N*T use N comment "#";
 # Variables
 var fL[<line,t> in Ls*Ts] >= -C[line] <= C[line];
 var fU[<line,t> in Ls*Ts] >= -C[line] <= C[line];
+
 var rL[N0*Ts] >= 0;
 var rU[N0*Ts] >= 0;
 var rLL[N0*Ts] >= 0;
@@ -40,20 +41,6 @@ minimize flexRequirement:
 	sum <n,t> in N0*Ts: (dP[n]*rU[n,t] + dM[n]*rL[n,t] + EPS*dpL[n,t] + EPS*dpU[n,t] );
 
 # Constraints
-subto BalanceNodeL:
-	forall <n,t> in N0*Ts:
-		pL[n,t] - dpU[n,t] + dpL[n,t] + rUL[n,t] - rLL[n,t] 
-		- sum <line> in Ls : if (fromBus[line] == n) then fL[line,t] else 0*fL[line,t] end
-		+ sum <line> in Ls : if (toBus[line] == n) then fL[line,t] else 0*fL[line,t] end
-		== 0;
-
-subto BalanceNodeU:
-	forall <n,t> in N0*Ts:
-		pU[n,t] - dpU[n,t] + dpL[n,t] + rUU[n,t] - rLU[n,t] 
-		- sum <line> in Ls : if (fromBus[line] == n) then fU[line,t] else 0*fU[line,t] end
-		+ sum <line> in Ls : if (toBus[line] == n) then fU[line,t] else 0*fU[line,t] end
-		== 0;
-
 subto minFlexBoundLL:
 	forall <n,t> in N0*Ts:
 		rL[n,t]>=rLL[n,t];
@@ -69,4 +56,18 @@ subto minFlexBoundUL:
 subto minFlexBoundUU:
 	forall <n,t> in N0*Ts:
 		rU[n,t]>=rUU[n,t];
+
+subto BalanceNodeL:
+	forall <n,t> in N0*Ts:
+		pL[n,t] - dpU[n,t] + dpL[n,t] + rUL[n,t] - rLL[n,t] 
+		- sum <line> in Ls : if (fromBus[line] == n) then fL[line,t] else 0*fL[line,t] end
+		+ sum <line> in Ls : if (toBus[line] == n) then fL[line,t] else 0*fL[line,t] end
+		== 0;
+
+subto BalanceNodeU:
+	forall <n,t> in N0*Ts:
+		pU[n,t] - dpU[n,t] + dpL[n,t] + rUU[n,t] - rLU[n,t] 
+		- sum <line> in Ls : if (fromBus[line] == n) then fU[line,t] else 0*fU[line,t] end
+		+ sum <line> in Ls : if (toBus[line] == n) then fU[line,t] else 0*fU[line,t] end
+		== 0;
 					

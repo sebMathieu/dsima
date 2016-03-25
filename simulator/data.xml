@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xml>
+<periods>3</periods>
+<externals>
+	<element id="DSO" name="DSO">
+		<data id="costs">-2.6645352591003757e-13</data>
+		<data id="Protections cost">46914.8560311733</data>
+		<data id="Total imbalance">0.0</data>
+	<timegraph id="brp" title="" ylabel="Power [MW]">
+		<timegraphdata id="Requirement of upward flexibility">23.2511,13.2511,6.2511</timegraphdata>
+		<timegraphdata id="Requirement of downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Imbalance">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<data id="Flexibility accepted">0.0</data>
+		<data id="Flexibility used">0.0</data>
+		<timedata id="Activated upward flexibility">0.0000,0.0000,0.0000</timedata>
+		<timedata id="Activated downward flexibility">0.0000,0.0000,0.0000</timedata>
+	<timegraph id="fsu" title="" ylabel="Power [MW]">
+		<timegraphdata id="Flexibility activation">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	</element>
+	<element id="TSO" name="TSO">
+		<data id="costs">-627.5</data>
+		<data id="Flexibility accepted">37.0</data>
+		<data id="Flexibility used">0.0</data>
+		<timedata id="Activated upward flexibility">0.0000,0.0000,0.0000</timedata>
+		<timedata id="Activated downward flexibility">0.0000,0.0000,0.0000</timedata>
+	<timegraph id="fsu" title="" ylabel="Power [MW]">
+		<timegraphdata id="Flexibility activation">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">9.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">-4.0000,-12.0000,-12.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="service" title="" ylabel="Power [MW]">
+		<timegraphdata id="Requirement of upward flexibility">4.0000,4.0000,4.0000</timegraphdata>
+		<timegraphdata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timegraphdata>
+		<timegraphdata id="E">0.5000,0.0000,-1.0000</timegraphdata>
+		<timegraphdata id="Flexibility activation">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	</element>
+	<element id="producerA" name="producerA">
+		<data id="costs">-603.3836948993937</data>
+		<data id="Total imbalance">0.0</data>
+		<data id="Realization energy">5.2468147382556</data>
+		<data id="Baseline energy">5.2468147382556</data>
+	<timegraph id="brp" title="" ylabel="Power [MW]">
+		<timegraphdata id="Global baseline">1.7489,1.7489,1.7489</timegraphdata>
+		<timegraphdata id="Global corrected baseline">1.7489,1.7489,1.7489</timegraphdata>
+		<timegraphdata id="Global realization">1.7489,1.7489,1.7489</timegraphdata>
+		<timegraphdata id="Imbalance">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<data id="Flexibility accepted">0.0</data>
+		<data id="Flexibility used">0.0</data>
+		<timedata id="Activated upward flexibility">0.0000,0.0000,0.0000</timedata>
+		<timedata id="Activated downward flexibility">0.0000,0.0000,0.0000</timedata>
+	<timegraph id="fsu" title="" ylabel="Power [MW]">
+		<timegraphdata id="Flexibility activation">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fsp" title="" ylabel="Power [MW]">
+		<timegraphdata id="Flexibility request">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	</element>
+	<element id="retailerA" name="retailerA">
+		<data id="costs">-615.0</data>
+		<data id="Total imbalance">44.5</data>
+		<data id="Realization energy">-3.5</data>
+		<data id="Baseline energy">-48.0</data>
+	<timegraph id="brp" title="" ylabel="Power [MW]">
+		<timegraphdata id="Global baseline">-25.0000,-15.0000,-8.0000</timegraphdata>
+		<timegraphdata id="Global corrected baseline">-25.0000,-15.0000,-8.0000</timegraphdata>
+		<timegraphdata id="Global realization">0.0000,0.0000,-3.5000</timegraphdata>
+		<timegraphdata id="Imbalance">25.0000,15.0000,4.5000</timegraphdata>
+	</timegraph>
+		<data id="Flexibility accepted">0.0</data>
+		<data id="Flexibility used">0.0</data>
+		<timedata id="Activated upward flexibility">0.0000,0.0000,0.0000</timedata>
+		<timedata id="Activated downward flexibility">0.0000,0.0000,0.0000</timedata>
+	<timegraph id="fsu" title="" ylabel="Power [MW]">
+		<timegraphdata id="Flexibility activation">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fsp" title="" ylabel="Power [MW]">
+		<timegraphdata id="Flexibility request">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	</element>
+</externals>
+<general>
+	<data id="Solved">20:46:29 21/01/2016</data>
+	<data id="Time">4.199223041534424</data>
+	<data id="Iterations">3</data>
+	<data id="OPF method">linearOpf</data>
+	<data id="Welfare">-45068.97234</data>
+	<data id="DSOs costs">-0.00000</data>
+	<data id="Protections cost">46914.85603</data>
+	<data id="TSOs surplus">627.50000</data>
+	<data id="Producers surplus">603.38369</data>
+	<data id="Retailers surplus">615.00000</data>
+	<data id="Total energy shed">-44.50000</data>
+	<data id="Total production">5.24681</data>
+	<data id="Total consumption">-3.50000</data>
+	<data id="Max. imbalance">25.00000</data>
+	<data id="Total imbalance">44.50000</data>
+	<data id="Total opp. usage of flex.">0.00000</data>
+	<data id="Total usage of flex.">0.00000</data>
+	<timedata id="Imbalance">25.0000,15.0000,4.5000</timedata>
+	<timedata id="Opposite usage of flexibility">0.0000,0.0000,0.0000</timedata>
+	<timedata id="Total usage of flexibility">0.0000,0.0000,0.0000</timedata>
+	<timedata id="Flexibility activation">0.0000,0.0000,0.0000</timedata>
+	<timedata id="Requirement of upward flexibility">47.2511,37.2511,30.2511t</timedata>
+	<timedata id="Requirement of downward flexibility">-24.0000,-24.0000,-24.0000t</timedata>
+	<timedata id="Submitted upward flexibility">9.0000,0.0000,0.0000t</timedata>
+	<timedata id="Submitted downward flexibility">-5.7489,-13.7489,-13.7489t</timedata>
+	<timedata id="Upward flexibility contracted">9.0000,0.0000,0.0000t</timedata>
+	<timedata id="Downward flexibility contracted">-4.0000,-12.0000,-12.0000t</timedata>
+	<timedata id="Activated upward flexibility">0.0000,0.0000,0.0000t</timedata>
+	<timedata id="Activated downward flexibility">0.0000,0.0000,0.0000t</timedata>
+	<timegraph id="prices" title="Prices" ylabel="Price [euro/MW period]">
+		<timegraphdata id="Energy price">45.0000,55.0000,50.0000</timegraphdata>
+		<timegraphdata id="Upward imbalance price">75.0000,75.0000,75.0000</timegraphdata>
+		<timegraphdata id="Downward imbalance price">75.0000,75.0000,75.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="sheddings" title="" ylabel="Shed quantities [MWh]">
+		<timegraphdata id="Shed quantities">-25.0000,-15.0000,-4.5000</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Requirement of upward flexibility">47.2511,37.2511,30.2511</timegraphdata>
+		<timegraphdata id="Requirement of downward flexibility">-24.0000,-24.0000,-24.0000</timegraphdata>
+		<timegraphdata id="Submitted upward flexibility">9.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">-5.7489,-13.7489,-13.7489</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">9.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">-4.0000,-12.0000,-12.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+</general>
+<elements>
+	<element id="LINE1" name="Line 1">
+		<data id="Line capacity">20.0</data>
+		<data id="Max. capacity upgrade">4.93187 in period 1</data>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Line capacity">20.0000,20.0000,20.0000</timegraphdata>
+		<timegraphdata id="- Line capacity">-20.0000,-20.0000,-20.0000</timegraphdata>
+		<timegraphdata id="Announced flow">24.7389,14.0936,6.7896</timegraphdata>
+		<timegraphdata id="Corrected flow">24.5405,14.0936,6.7896</timegraphdata>
+		<timegraphdata id="Flow realization">-1.7489,-1.7489,2.4756</timegraphdata>
+		<timegraphdata id="flow violation">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#1BA1E2;stroke:#1BA1E2;stroke-width:2</default>
+			<periods>fill:#1BA1E2;stroke:#1BA1E2;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2</periods>
+		</timestyle>
+		<timetext>
+			<default></default>
+			<periods>-1.7/20.0,-1.7/20.0,2.5/20.0</periods>
+		</timetext>
+	</element>
+	<element id="LINE2" name="Line 2">
+		<data id="Line capacity">10.0</data>
+		<data id="Max. capacity upgrade">0.00000</data>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Line capacity">10.0000,10.0000,10.0000</timegraphdata>
+		<timegraphdata id="- Line capacity">-10.0000,-10.0000,-10.0000</timegraphdata>
+		<timegraphdata id="Announced flow">-1.7489,-1.7489,-1.7489</timegraphdata>
+		<timegraphdata id="Corrected flow">-1.7489,-1.7489,-1.7489</timegraphdata>
+		<timegraphdata id="Flow realization">-1.7489,-1.7489,-1.7489</timegraphdata>
+		<timegraphdata id="flow violation">4.4615,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#A20025;stroke:#A20025;stroke-width:2</default>
+			<periods>fill:#A20025;stroke:#1BA1E2;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2</periods>
+		</timestyle>
+		<timetext>
+			<default></default>
+			<periods>-1.7/10.0,-1.7/10.0,-1.7/10.0</periods>
+		</timetext>
+	</element>
+	<element id="LINE3" name="Line 3">
+		<data id="Line capacity">22.0</data>
+		<data id="Max. capacity upgrade">4.68081 in period 1</data>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Line capacity">22.0000,22.0000,22.0000</timegraphdata>
+		<timegraphdata id="- Line capacity">-22.0000,-22.0000,-22.0000</timegraphdata>
+		<timegraphdata id="Announced flow">26.3894,15.7493,8.4275</timegraphdata>
+		<timegraphdata id="Corrected flow">26.2035,15.7493,8.4275</timegraphdata>
+		<timegraphdata id="Flow realization">0.0000,0.0000,3.9131</timegraphdata>
+		<timegraphdata id="flow violation">4.0166,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#A20025;stroke:#A20025;stroke-width:2</default>
+			<periods>fill:#A20025;stroke:#1BA1E2;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2</periods>
+		</timestyle>
+		<timetext>
+			<default></default>
+			<periods>0.0/22.0,0.0/22.0,3.9/22.0</periods>
+		</timetext>
+	</element>
+	<element id="LINE4" name="Line 4">
+		<data id="Line capacity">12.0</data>
+		<data id="Max. capacity upgrade">2.03706 in period 1</data>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Line capacity">12.0000,12.0000,12.0000</timegraphdata>
+		<timegraphdata id="- Line capacity">-12.0000,-12.0000,-12.0000</timegraphdata>
+		<timegraphdata id="Announced flow">13.7674,9.1782,4.5891</timegraphdata>
+		<timegraphdata id="Corrected flow">15.8070,9.1782,4.5891</timegraphdata>
+		<timegraphdata id="Flow realization">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="flow violation">0.6444,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#A20025;stroke:#A20025;stroke-width:2</default>
+			<periods>fill:#A20025;stroke:#1BA1E2;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2</periods>
+		</timestyle>
+		<timetext>
+			<default></default>
+			<periods>0.0/12.0,0.0/12.0,0.0/12.0</periods>
+		</timetext>
+	</element>
+	<element id="LINE5" name="Line 5">
+		<data id="Line capacity">10.0</data>
+		<data id="Max. capacity upgrade">3.00634 in period 1</data>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Line capacity">10.0000,10.0000,10.0000</timegraphdata>
+		<timegraphdata id="- Line capacity">-10.0000,-10.0000,-10.0000</timegraphdata>
+		<timegraphdata id="Announced flow">12.8574,6.7082,3.9131</timegraphdata>
+		<timegraphdata id="Corrected flow">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Flow realization">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="flow violation">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#1BA1E2;stroke:#1BA1E2;stroke-width:2</default>
+			<periods>fill:#1BA1E2;stroke:#1BA1E2;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2,fill:#000000;stroke:#000000;stroke-width:2</periods>
+		</timestyle>
+		<timetext>
+			<default></default>
+			<periods>0.0/10.0,0.0/10.0,0.0/10.0</periods>
+		</timetext>
+	</element>
+	<element id="BUS0" name="Bus 0">
+		<data id="Downward access request bound">0.0</data>
+		<data id="Upward access request bound">0.0</data>
+		<data id="Safe downward access bound">0.0</data>
+		<data id="Safe upward access bound">0.0</data>
+	<timedata id="Requirement of upward flexibility">5.0746,5.0746,4.9804</timedata>
+	<timedata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timedata>
+	<timegraph id="voltage" title="" ylabel="Voltage [kV]">
+		<timegraphdata id="Min. voltage">19.0000,19.0000,19.0000</timegraphdata>
+		<timegraphdata id="Max. voltage">21.0000,21.0000,21.0000</timegraphdata>
+		<timegraphdata id="Baseline voltage">20.0000,20.0000,20.0000</timegraphdata>
+		<timegraphdata id="Corrected voltage">20.0000,20.0000,20.0000</timegraphdata>
+		<timegraphdata id="Voltage">20.0000,20.0000,20.0000</timegraphdata>
+		<timegraphdata id="voltage violation">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="voltageAngle" title="" ylabel="Voltage angle [deg]">
+		<timegraphdata id="Baseline voltage angle">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Corrected voltage angle">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Voltage angle">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Local baseline">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Local corrected baseline">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Local realization">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Submitted upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#000000;stroke:#000000</default>
+			<periods>fill:#000000;stroke:#000000,fill:#000000;stroke:#000000,fill:#000000;stroke:#000000</periods>
+		</timestyle>
+	</element>
+	<element id="BUS1" name="Bus 1">
+		<data id="Downward access request bound">0.0</data>
+		<data id="Upward access request bound">0.0</data>
+		<data id="Safe downward access bound">0.0</data>
+		<data id="Safe upward access bound">0.0</data>
+	<timedata id="Requirement of upward flexibility">4.0000,4.0000,4.0000</timedata>
+	<timedata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timedata>
+	<timegraph id="voltage" title="" ylabel="Voltage [kV]">
+		<timegraphdata id="Min. voltage">19.0000,19.0000,19.0000</timegraphdata>
+		<timegraphdata id="Max. voltage">21.0000,21.0000,21.0000</timegraphdata>
+		<timegraphdata id="Baseline voltage">20.9945,19.0874,19.2904</timegraphdata>
+		<timegraphdata id="Corrected voltage">20.6215,19.0874,19.2904</timegraphdata>
+		<timegraphdata id="Voltage">20.7001,20.7001,20.2288</timegraphdata>
+		<timegraphdata id="voltage violation">4.2243,1.8097,0.1268</timegraphdata>
+	</timegraph>
+	<timegraph id="voltageAngle" title="" ylabel="Voltage angle [deg]">
+		<timegraphdata id="Baseline voltage angle">44.2110,25.8990,12.2210</timegraphdata>
+		<timegraphdata id="Corrected voltage angle">44.3118,25.8990,12.2210</timegraphdata>
+		<timegraphdata id="Voltage angle">-2.3621,-2.3621,4.3579</timegraphdata>
+	</timegraph>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Local baseline">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Local corrected baseline">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Local realization">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Submitted upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#000000;stroke:#A20025</default>
+			<periods>fill:#000000;stroke:#000000,fill:#000000;stroke:#000000,fill:#000000;stroke:#000000</periods>
+		</timestyle>
+	</element>
+	<element id="BUS2" name="Bus 2">
+		<data id="Downward access request bound">0.0</data>
+		<data id="Upward access request bound">16.9</data>
+		<data id="Safe downward access bound">0.0</data>
+		<data id="Safe upward access bound">1.7489382460851992</data>
+	<timedata id="Requirement of upward flexibility">4.0000,4.0000,4.0000</timedata>
+	<timedata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timedata>
+	<timegraph id="voltage" title="" ylabel="Voltage [kV]">
+		<timegraphdata id="Min. voltage">19.0000,19.0000,19.0000</timegraphdata>
+		<timegraphdata id="Max. voltage">21.0000,21.0000,21.0000</timegraphdata>
+		<timegraphdata id="Baseline voltage">20.8260,19.0205,19.3041</timegraphdata>
+		<timegraphdata id="Corrected voltage">20.4525,19.0205,19.3041</timegraphdata>
+		<timegraphdata id="Voltage">20.7984,20.7984,20.2886</timegraphdata>
+		<timegraphdata id="voltage violation">4.1420,1.7274,0.0445</timegraphdata>
+	</timegraph>
+	<timegraph id="voltageAngle" title="" ylabel="Voltage angle [deg]">
+		<timegraphdata id="Baseline voltage angle">43.4039,24.8986,11.2142</timegraphdata>
+		<timegraphdata id="Corrected voltage angle">43.4908,24.8986,11.2142</timegraphdata>
+		<timegraphdata id="Voltage angle">-3.2589,-3.2589,3.4131</timegraphdata>
+	</timegraph>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Local baseline">1.7489,1.7489,1.7489</timegraphdata>
+		<timegraphdata id="Local corrected baseline">1.7489,1.7489,1.7489</timegraphdata>
+		<timegraphdata id="Local realization">1.7489,1.7489,1.7489</timegraphdata>
+		<timegraphdata id="Downward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward periodic access bound">1.7489,1.7489,1.7489</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Submitted upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">-1.7489,-1.7489,-1.7489</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#000000;stroke:#A20025</default>
+			<periods>fill:#000000;stroke:#000000,fill:#000000;stroke:#000000,fill:#000000;stroke:#000000</periods>
+		</timestyle>
+	</element>
+	<element id="BUS3" name="Bus 3">
+		<data id="Downward access request bound">0.0</data>
+		<data id="Upward access request bound">0.0</data>
+		<data id="Safe downward access bound">0.0</data>
+		<data id="Safe upward access bound">0.0</data>
+	<timedata id="Requirement of upward flexibility">4.0000,4.0000,4.0000</timedata>
+	<timedata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timedata>
+	<timegraph id="voltage" title="" ylabel="Voltage [kV]">
+		<timegraphdata id="Min. voltage">19.0000,19.0000,19.0000</timegraphdata>
+		<timegraphdata id="Max. voltage">21.0000,21.0000,21.0000</timegraphdata>
+		<timegraphdata id="Baseline voltage">23.9855,17.9693,17.5320</timegraphdata>
+		<timegraphdata id="Corrected voltage">23.4160,17.9693,17.5320</timegraphdata>
+		<timegraphdata id="Voltage">20.7001,20.7001,19.3446</timegraphdata>
+		<timegraphdata id="voltage violation">12.6543,6.8497,2.7968</timegraphdata>
+	</timegraph>
+	<timegraph id="voltageAngle" title="" ylabel="Voltage angle [deg]">
+		<timegraphdata id="Baseline voltage angle">73.6840,47.5413,22.6212</timegraphdata>
+		<timegraphdata id="Corrected voltage angle">74.3272,47.5413,22.6212</timegraphdata>
+		<timegraphdata id="Voltage angle">-2.3621,-2.3621,8.7330</timegraphdata>
+	</timegraph>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Local baseline">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Local corrected baseline">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Local realization">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Submitted upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#656565;stroke:#A20025</default>
+			<periods>fill:#000000;stroke:#000000,fill:#656565;stroke:#000000,fill:#656565;stroke:#000000</periods>
+		</timestyle>
+	</element>
+	<element id="BUS4" name="Bus 4">
+		<data id="Shed">in period(s) 1, 2, 3</data>
+		<data id="Downward access request bound">-17.5</data>
+		<data id="Upward access request bound">0.0</data>
+		<data id="Safe downward access bound">-0.8893258810029003</data>
+		<data id="Safe upward access bound">0.0</data>
+	<timedata id="Requirement of upward flexibility">20.3502,15.8502,9.2706</timedata>
+	<timedata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timedata>
+	<timegraph id="voltage" title="" ylabel="Voltage [kV]">
+		<timegraphdata id="Min. voltage">19.0000,19.0000,19.0000</timegraphdata>
+		<timegraphdata id="Max. voltage">21.0000,21.0000,21.0000</timegraphdata>
+		<timegraphdata id="Baseline voltage">24.7552,17.6947,17.0275</timegraphdata>
+		<timegraphdata id="Corrected voltage">24.3559,17.6947,17.0275</timegraphdata>
+		<timegraphdata id="Voltage">20.7001,20.7001,19.3446</timegraphdata>
+		<timegraphdata id="voltage violation">15.2227,8.3410,3.5424</timegraphdata>
+	</timegraph>
+	<timegraph id="voltageAngle" title="" ylabel="Voltage angle [deg]">
+		<timegraphdata id="Baseline voltage angle">79.5233,53.0402,24.9566</timegraphdata>
+		<timegraphdata id="Corrected voltage angle">81.1257,53.0402,24.9566</timegraphdata>
+		<timegraphdata id="Voltage angle">-2.3621,-2.3621,8.7330</timegraphdata>
+	</timegraph>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Local baseline">-13.5000,-9.0000,-4.5000</timegraphdata>
+		<timegraphdata id="Local corrected baseline">-15.5000,-9.0000,-4.5000</timegraphdata>
+		<timegraphdata id="Local realization">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward periodic access bound">-0.8893,-0.8893,-0.8893</timegraphdata>
+		<timegraphdata id="Upward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Submitted upward flexibility">2.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">-4.0000,-6.0000,-6.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">2.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">-4.0000,-6.0000,-6.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#A20025;stroke:#A20025</default>
+			<periods>fill:#A20025;stroke:#000000,fill:#A20025;stroke:#000000,fill:#A20025;stroke:#000000</periods>
+		</timestyle>
+	</element>
+	<element id="BUS5" name="Bus 5">
+		<data id="Shed">in period(s) 1, 2</data>
+		<data id="Downward access request bound">-12.0</data>
+		<data id="Upward access request bound">0.0</data>
+		<data id="Safe downward access bound">-0.6098234612591007</data>
+		<data id="Safe upward access bound">0.0</data>
+	<timedata id="Requirement of upward flexibility">9.8264,4.3264,4.0000</timedata>
+	<timedata id="Requirement of downward flexibility">-4.0000,-4.0000,-4.0000</timedata>
+	<timegraph id="voltage" title="" ylabel="Voltage [kV]">
+		<timegraphdata id="Min. voltage">19.0000,19.0000,19.0000</timegraphdata>
+		<timegraphdata id="Max. voltage">21.0000,21.0000,21.0000</timegraphdata>
+		<timegraphdata id="Baseline voltage">25.6574,18.1645,17.2363</timegraphdata>
+		<timegraphdata id="Corrected voltage">24.8040,18.1645,17.2363</timegraphdata>
+		<timegraphdata id="Voltage">20.7001,20.7001,18.8457</timegraphdata>
+		<timegraphdata id="voltage violation">14.3461,7.9182,3.4200</timegraphdata>
+	</timegraph>
+	<timegraph id="voltageAngle" title="" ylabel="Voltage angle [deg]">
+		<timegraphdata id="Baseline voltage angle">79.4665,52.4841,25.4789</timegraphdata>
+		<timegraphdata id="Corrected voltage angle">79.2327,52.4841,25.4789</timegraphdata>
+		<timegraphdata id="Voltage angle">-2.3621,-2.3621,11.0384</timegraphdata>
+	</timegraph>
+	<timegraph id="baseline" title="" ylabel="Power [MW]">
+		<timegraphdata id="Local baseline">-11.5000,-6.0000,-3.5000</timegraphdata>
+		<timegraphdata id="Local corrected baseline">-9.5000,-6.0000,-3.5000</timegraphdata>
+		<timegraphdata id="Local realization">0.0000,0.0000,-3.5000</timegraphdata>
+		<timegraphdata id="Downward periodic access bound">-0.6098,-0.6098,-0.6098</timegraphdata>
+		<timegraphdata id="Upward periodic access bound">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+	<timegraph id="fs" title="" ylabel="Power [MW]">
+		<timegraphdata id="Submitted upward flexibility">7.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Submitted downward flexibility">0.0000,-6.0000,-6.0000</timegraphdata>
+		<timegraphdata id="Upward flexibility contracted">7.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Downward flexibility contracted">0.0000,-6.0000,-6.0000</timegraphdata>
+		<timegraphdata id="Activated upward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+		<timegraphdata id="Activated downward flexibility">0.0000,0.0000,0.0000</timegraphdata>
+	</timegraph>
+		<timestyle>
+			<default>fill:#A20025;stroke:#A20025</default>
+			<periods>fill:#A20025;stroke:#000000,fill:#A20025;stroke:#000000,fill:#656565;stroke:#000000</periods>
+		</timestyle>
+	</element>
+</elements>
+</xml>

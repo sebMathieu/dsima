@@ -287,7 +287,7 @@ class Instance:
 						externalImbalance=random.uniform(-maxExternalImbalance,maxExternalImbalance)
 						file.write('%s,%s\n'%(t+1,externalImbalance))
 						
-	## Make a CSV file for each producer with its parameters.
+	## Make a CSV file for the TSO with its parameters.
 	# @param timeData Base annual data for the instance generation.
 	def _makeTSO(self,timeData):
 		ip=self.instanceParameters

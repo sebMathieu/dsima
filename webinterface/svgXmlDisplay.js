@@ -172,9 +172,10 @@ function createLineChart(containerId,data,labels,title,ylabel) {
 	{
 		title:{text: ""},
 		axisX: {title:"Period"},
-		axisY:{title: ylabel},
+		axisY:{title: ylabel, includeZero: false},
 		data: chartData,
     	legend: {
+    		fontSize: 13,
             cursor: "pointer",
             itemclick: function (e) {
                 if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -404,22 +405,29 @@ function buildTimeline() {
 * @param dataXml XML document with the data.
 */
 function displayXML(dataXml) {
-	xml=dataXml;
-	popupBox=$("#popupBox");
+	if (dataXml === undefined) {
+		// Clean
+		$("#rightBox").html("");
+	}
+	else {
+		// Copy data and build
+		xml=dataXml;
+		popupBox=$("#popupBox");
 
-	// Retrieve the number of periods
-	T=0;
-	$(xml).children().each(function() {
-		if ($(this).prop("tagName").toLowerCase() === "periods") {
-			T=parseInt($(this).text());
-			return false;
+		// Retrieve the number of periods
+		T=0;
+		$(xml).children().each(function() {
+			if ($(this).prop("tagName").toLowerCase() === "periods") {
+				T=parseInt($(this).text());
+				return false;
+			}
+		});
+
+		// Prepare the timeline related display
+		if (document.getElementById('timeline') != null) {
+			buildTimeline();
+			changeTime(0);
 		}
-	});
-
-	// Prepare the timeline related display
-	if (document.getElementById('timeline') != null) {
-		buildTimeline();
-		changeTime(0);
 	}
 }
 

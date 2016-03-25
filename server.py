@@ -2,7 +2,7 @@
 
 import asyncio # pip install asyncio (or pip3)
 import websockets # pip install websockets (or pip3)
-import sys,socket, threading
+import sys,socket, threading, os
 
 from server.clienthandler import clientHandler,IPGetterProtocol
 from server.log import log
@@ -11,7 +11,7 @@ from server.isinterface import compute as simulationCompute
 ## Server location.
 host='localhost'
 ## Server port.
-port=9000
+port=8000
 
 ## Display the help of the server.
 def displayHelp():
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 	threading.Thread(target=simulationCompute).start()
 
 	# Start the server
-	log("Server started on ws://%s:%s/" % (host, port))
+	log("Server started on ws://%s:%s/ with PID %s." % (host, port, os.getpid()))
 	start_server = websockets.serve(clientHandler, host, port, klass=IPGetterProtocol)
 	asyncio.get_event_loop().run_until_complete(start_server)
 	asyncio.get_event_loop().run_forever()

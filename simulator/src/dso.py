@@ -1,7 +1,7 @@
 ##@package dso
 #@author Sebastien MATHIEU
 
-import os, csv
+import os, csv, math
 
 from .agent.stateAgent import StateAgent
 from .fsu import FSU
@@ -25,7 +25,7 @@ class DSO(StateAgent, FSU):
 	# @param networkDataFile Data of the network. @see _networkDataFile
 	# @param qualifiedFlexibilityFile Data of the flexibility. @see _qualifiedFlexibilityFile
 	# @param name DSO's name. @see rename()
-	def __init__(self,networkDataFile,qualifiedFlexibilityFile,name="DSO"): 
+	def __init__(self,networkDataFile,qualifiedFlexibilityFile,name="DSO"):
 		StateAgent.__init__(self,name)   
 		self._networkDataFile=networkDataFile
 		self._qualifiedFlexibilityFile=qualifiedFlexibilityFile
@@ -35,30 +35,43 @@ class DSO(StateAgent, FSU):
 		StateAgent.initialize(self,data)
 		self._readNetworkData(data)
 		FSU.initialize(self,data)
-		
+
+		# Time variables
 		data.general['Shed quantities']=[0.0]*self.T
 		data.general['Total production']=[0.0]*self.T
 		data.general['Total consumption']=[0.0]*self.T
 		data.personal[self.name]['R+']=[0.0]*self.T # Total requirement of upward flex
 		data.personal[self.name]['R-']=[0.0]*self.T # Total requirement of downward flex
-		data.personal[self.name]['I']=[0.0]*self.T 
+		data.personal[self.name]['I']=[0.0]*self.T
+
+		# Status variables
 		data.personal[self.name]['costs']=[0.0]
 		data.personal[self.name]['statusVariables'].extend(('R+','R-','costs','I'))
 		
-		# For the solution display
-		data.personal[self.name]['dC']=[]
-		data.personal[self.name]['f^b']=[] # Flow using announced baselines
-		data.personal[self.name]['f^r']=[] # Flow observed
-		data.personal[self.name]['f']=[] # Real flow
-		for l in range(self.L):
-			data.personal[self.name]['f^b'].append([0.0]*self.T)
-			data.personal[self.name]['f^r'].append([0.0]*self.T)
-			data.personal[self.name]['f'].append([0.0]*self.T)
-			data.personal[self.name]['dC'].append([0.0]*self.T)
-			
-		data.general['z']=[] # Shedding
+		# Line solution display allocation
+		lineAttributes=['dC','f^b','f','f^r','flow violation']
+		if options.OPF_METHOD == "linearOpf":
+			lineAttributes.extend(['p','q','p^r', 'q^r','p^b','q^b'])
+
+		for la in lineAttributes:
+			data.personal[self.name][la]={}
+			for l in range(1,self.L+1):
+				data.personal[self.name][la][l]=[0.0]*self.T
+
+		# Sheddings
+		data.general['z']=[]
 		for n in self.nodes:
 			data.general['z'].append([0.0]*self.T)
+
+		# Bus solution display allocation
+		nodeAttributes=[]
+		if options.OPF_METHOD == "linearOpf":
+			nodeAttributes.extend(['v','phi','v^r','phi^r','v^b','phi^b', 'voltage violation'])
+
+		for na in nodeAttributes:
+			data.personal[self.name][na]=[]
+			for n in self.nodes:
+				data.personal[self.name][na].append([0.0]*self.T)
 		
 	def act(self, data, layer):
 		if options.DEBUG:
@@ -131,9 +144,10 @@ class DSO(StateAgent, FSU):
 			try:
 				solver=data.general['solver']
 				
-				# Retrieve the solution file
+				# Solve
 				solutionFile="DSO-accessAgreement.sol"
-				solver.solve("DSO-accessAgreement.zpl", solutionFile,cwd=options.FOLDER)
+				model="DSO-accessAgreement.zpl" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-accessAgreement.zpl"
+				solver.solve(model, solutionFile,cwd=options.FOLDER)
 				solver.checkFeasible()
 				
 				# Obtain general bounds by node
@@ -218,17 +232,18 @@ class DSO(StateAgent, FSU):
 			
 			# Retrieve the solution
 			solver=data.general['solver']
-			solver.solve("DSO-operation.zpl",solutionFile,cwd=options.FOLDER)
+			model="DSO-operation.zpl" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-operation.zpl"
+			solver.solve(model, solutionFile,cwd=options.FOLDER)
 			solver.checkFeasible()
 	
 			# Parse the solution
-			data.personal[self.name]['Shedding costs']=solver.objectiveValue()
+			data.personal[self.name]['protectionsCost']=solver.objectiveValue()
 			data.general['Shed quantities']=[0.0]*self.T
 			data.general['Number of sheddings']=[0]*self.T
 			data.general['Total production']=[0.0]*self.T
 			data.general['Total consumption']=[0.0]*self.T
-			for n in self.nodes:		
-				 # Get the sheddings
+			for n in self.nodes:
+				# Get the sheddings
 				z=solver.variableVectorValue(self.T, 'z#%s#'%n, 1)
 				data.general['z'][n]=list(map(lambda x: (x > options.EPS),z))
 				
@@ -243,6 +258,20 @@ class DSO(StateAgent, FSU):
 						data.general['U+'][n][t]+=activatedFlex[t]
 					elif activatedFlex[t] < -options.EPS:
 						data.general['U-'][n][t]-=activatedFlex[t]
+
+				# Voltages
+				if options.OPF_METHOD == "linearOpf":
+					e=solver.variableVectorValue(self.T, 'e#%s#'%n, 1)
+					f=solver.variableVectorValue(self.T, 'f#%s#'%n, 1)
+					data.personal[self.name]['v'][n]=list(map(lambda a,b: math.sqrt(a*a+b*b)*data.personal[self.name]['Vb'], e, f))
+					data.personal[self.name]['phi'][n]=list(map(lambda a,b: math.atan(b/a)/math.pi*180 if a > options.EPS else 0, e, f))
+
+					er=solver.variableVectorValue(self.T, 'er#%s#'%n, 1)
+					fr=solver.variableVectorValue(self.T, 'fr#%s#'%n, 1)
+					data.personal[self.name]['v^r'][n]=list(map(lambda a,b: math.sqrt(a*a+b*b)*data.personal[self.name]['Vb'], er, fr))
+					data.personal[self.name]['phi^r'][n]=list(map(lambda a,b: math.atan(b/a)/math.pi*180 if a > options.EPS else 0, er, fr))
+
+					data.personal[self.name]['voltage violation'][n]=list(map(lambda a:a*data.personal[self.name]['Vb'],solver.variableVectorValue(self.T, 'voltageViolation#%s#'%n, 1)))
 				
 				# Shedding
 				if max(z) > options.EPS:
@@ -257,9 +286,20 @@ class DSO(StateAgent, FSU):
 					if max(activatedFlex) > options.EPS:
 						tools.log("\t\tr[n=%s] : %s" % (n,activatedFlex), options.LOG, options.PRINT_TO_SCREEN)
 			
-			for l in range(self.L):
-				data.personal[self.name]['f^r'][l]=solver.variableVectorValue(self.T, 'fr#%s#'%(l+1), 1)
-				data.personal[self.name]['f'][l]=solver.variableVectorValue(self.T, 'f#%s#'%(l+1), 1)
+			for l in range(1,self.L):
+				data.personal[self.name]['flow violation'][l]=list(map(lambda a:a*data.personal[self.name]['Sb'], solver.variableVectorValue(self.T, 'flowViolation#%s#'%l, 1)))
+
+				if options.OPF_METHOD == "linearOpf":
+					data.personal[self.name]['p^r'][l]=solver.variableVectorValue(self.T, 'pr#%s#'%l, 1)
+					data.personal[self.name]['q^r'][l]=solver.variableVectorValue(self.T, 'qr#%s#'%l, 1)
+					data.personal[self.name]['f^r'][l]=list(map(lambda a,b: math.sqrt(a*a+b*b)*data.personal[self.name]['Sb']*(1 if a >= 0 else -1), data.personal[self.name]['p^r'][l], data.personal[self.name]['q^r'][l]))
+
+					data.personal[self.name]['p'][l]=solver.variableVectorValue(self.T, 'p#%s#'%l, 1)
+					data.personal[self.name]['q'][l]=solver.variableVectorValue(self.T, 'q#%s#'%l, 1)
+					data.personal[self.name]['f'][l]=list(map(lambda a,b: math.sqrt(a*a+b*b)*data.personal[self.name]['Sb']*(1 if a >= 0 else -1) , data.personal[self.name]['p'][l], data.personal[self.name]['q'][l]))
+				else:
+					data.personal[self.name]['f^r'][l]=solver.variableVectorValue(self.T, 'fr#%s#'%l, 1)
+					data.personal[self.name]['f'][l]=solver.variableVectorValue(self.T, 'f#%s#'%l, 1)
 				
 		finally: # Move back the data file
 			if not options.COPY:
@@ -282,7 +322,7 @@ class DSO(StateAgent, FSU):
 		
 		try:
 			self._writeAnnouncedBaselinesFull(data)
-			model="DSO-flexActivation"
+			model="DSO-flexActivation" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-flexActivation"
 			self.flexiblityActivationRequest(model,data)
 	
 			# Retrieve imbalance
@@ -316,7 +356,8 @@ class DSO(StateAgent, FSU):
 		
 		try: # Evaluate the flexibility offers.
 			self._writeAnnouncedBaselinesFull(data)
-			self.flexiblityEvaluationAndRequest("DSO-flexEvaluation",data)
+			model="DSO-flexEvaluation" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-flexEvaluation"
+			self.flexiblityEvaluationAndRequest(model,data)
 			
 		finally: # Move back the data file
 			if not options.COPY:
@@ -344,7 +385,8 @@ class DSO(StateAgent, FSU):
 
 			# Solve
 			solver=data.general['solver']
-			solver.solve("DSO-flexNeedsAndRanges.zpl","DSO-flexNeedsAndRanges.sol",cwd=options.FOLDER)
+			model="DSO-flexNeedsAndRanges.zpl" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-flexNeedsAndRanges.zpl"
+			solver.solve(model,"DSO-flexNeedsAndRanges.sol",cwd=options.FOLDER)
 			solver.checkFeasible()
 
 			# Parse the flexibility needs
@@ -402,12 +444,11 @@ class DSO(StateAgent, FSU):
 		try:
 			for t in range(self.T):
 				# Flexibility needs
-				solutionFile="DSO-flexNeeds-%s.sol" % t
-				self._writeAnnouncedBaselines(data,t)
-
-				# Retrieve the solution
 				solver=data.general['solver']
-				solver.solve("DSO-flexNeeds.zpl",solutionFile,cwd=options.FOLDER)
+				self._writeAnnouncedBaselines(data,t)
+				model="DSO-flexNeeds.zpl" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-flexNeeds.zpl"
+				solutionFile="DSO-flexNeeds-%s.sol" % t
+				solver.solve(model,solutionFile,cwd=options.FOLDER)
 				solver.checkFeasible()
 
 				# Parse the solution
@@ -444,19 +485,33 @@ class DSO(StateAgent, FSU):
 				self._writeAnnouncedBaselines(data,t,proposals)
 
 				solver=data.general['solver']
+				model="DSO-capaNeeds.zpl" if options.OPF_METHOD != "linearOpf" else "DSO-linearOpf-capaNeeds.zpl"
 				solutionFile="DSO-capaNeeds-%s.sol" % t
-				solver.solve("DSO-capaNeeds.zpl",solutionFile,cwd=options.FOLDER)
+				solver.solve(model,solutionFile,cwd=options.FOLDER)
 
 				solver.checkFeasible()
 
 				# parse the solution
 				dC=solver.variableVectorValue(self.L, 'dC#', 1)
-				flow=solver.variableVectorValue(self.L, 'f#', 1)
-				for l in range(self.L):
-					data.personal[self.name]['f^b'][l][t]=flow[l]
-					data.personal[self.name]['dC'][l][t]=dC[l]
-					if options.DEBUG and dC[l] > options.EPS:
-						tools.log("\t\tdC[t=%s,l=%s]=%s" % (t,l,dC[l]))
+				flow=[]
+				if options.OPF_METHOD == "linearOpf":
+					e=solver.variableVectorValue(self.N, 'e#', 0)
+					f=solver.variableVectorValue(self.N, 'f#', 0)
+					p=solver.variableVectorValue(self.L, 'p#', 1)
+					q=solver.variableVectorValue(self.L, 'q#', 1)
+					v=list(map(lambda a,b: math.sqrt(a*a+b*b), e, f))
+					phi=list(map(lambda a,b: math.atan(b/a)/math.pi*180 if a > options.EPS else 0, e, f))
+					flow=list(map(lambda a,b:math.sqrt(a*a+b*b)*data.personal[self.name]['Sb']*(1 if a >= 0 else -1),p,q))
+
+					for n in self.nodes:
+						data.personal[self.name]['v^b'][n][t]=v[n]*data.personal[self.name]['Vb']
+						data.personal[self.name]['phi^b'][n][t]=phi[n]
+				else:
+					flow=solver.variableVectorValue(self.L, 'f#', 1)
+
+				for l in range(1,self.L+1):
+					data.personal[self.name]['f^b'][l][t]=flow[l-1]
+					data.personal[self.name]['dC'][l][t]=dC[l-1]
 
 		finally: # Move back the data file
 			if not options.COPY:
@@ -587,14 +642,32 @@ class DSO(StateAgent, FSU):
 				row=next(csvReader)
 			self.L=int(row[1])
 			data.personal[self.name]['L']=self.L
+			data.personal[self.name]['Sb']=float(row[4]) # Base power
+			data.personal[self.name]['Vb']=float(row[5]) # Base voltage
 			
 			# Get line capacities
-			data.personal[self.name]['C']=[0.0]*self.L
-			for l in range(self.L):
+			data.personal[self.name]['C']={}
+			for l in range(1, self.L+1):
 				row=[options.COMMENT_CHAR]
 				while row[0].startswith(options.COMMENT_CHAR):
 					row=next(csvReader)
-				data.personal[self.name]['C'][l]=float(row[5])
+
+				lineIndex=int(row[0])
+				if lineIndex < 1 or lineIndex > self.L:
+					raise Exception('Invalid line index %s in network data file "%s".' % (lineIndex, self._networkDataFile))
+				data.personal[self.name]['C'][lineIndex]=float(row[5])
+
+			# Get node voltages bounds
+			data.personal[self.name]['Vmin']=[0.0]*self.N
+			data.personal[self.name]['Vmax']=[0.0]*self.N
+			for n in self.nodes:
+				row=[options.COMMENT_CHAR]
+				while row[0].startswith(options.COMMENT_CHAR):
+					row=next(csvReader)
+
+				busIndex=int(row[0])
+				data.personal[self.name]['Vmin'][busIndex]=float(row[2])
+				data.personal[self.name]['Vmax'][busIndex]=float(row[3])
 		   
 	## Get the data to display.
 	# @param data Data.
@@ -602,7 +675,7 @@ class DSO(StateAgent, FSU):
 	def xmlData(self,data):
 		s='\t<element id="%s" name="%s">\n'%(self.name,self.name)
 		s+='\t\t<data id="costs">%s</data>\n'%data.personal[self.name]['costs'][0]
-		s+='\t\t<data id="Shedding costs">%s</data>\n'%data.personal[self.name]['Shedding costs']
+		s+='\t\t<data id="Protections cost">%s</data>\n'%data.personal[self.name]['protectionsCost']
 		s+='\t\t<data id="Total imbalance">%s</data>\n'%(sum(map(abs,data.personal[self.name]['I']))*data.general['dt'])
 		
 		# Imbalance caused

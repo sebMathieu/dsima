@@ -70,8 +70,9 @@
 #timeline a, .backLink {
 	margin:0;
 	color:black;
+	border-radius: 8px;
 	border:1px solid #ccc;
-	padding:0.25em 0.25em;
+	padding:0.4em 0.4em;
 	background-color:#fff;
 	cursor: pointer;
 }
@@ -83,12 +84,13 @@
 
 #timeline a:hover, .backLink:hover {
 	text-decoration:none;
-	background-color:#aaa;
+	background-color:#43B3E0;
+	color:black;
 }
 
 #timeline .activeLink {
 	color:white;
-	background-color:#333;
+	background-color:#43BFF0;
 	box-shadow:0.15em 0.15em 0.15em #333;
 }
 

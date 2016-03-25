@@ -19,3 +19,9 @@ FOLDER='operationFolder'
 EPS=0.00001
 ## Arbitrary big number
 INF=10000
+## Optimal power flow method:
+#  - "networkFlow" or None: Traditional network flow with active powers.
+#  - "linearOpf" : Linear approximation of the optimal power flow problems.
+OPF_METHOD=None
+## Solver name. By default uses scip. Alternative: cplex.
+SOLVER = 'scip'

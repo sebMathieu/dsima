@@ -11,7 +11,7 @@ from .log import log
 
 # Static parameters
 ## Maximum number of iterations of a simulation.
-MAX_ITERATIONS=10
+MAX_ITERATIONS=5
 ## Numerical tolerance on the convergence.
 CONVERGENCE_TOLERANCE=0.005
 ## Maximum threads.
@@ -59,19 +59,22 @@ def compute():
 # @param instanceDirectory Directory containing the instances to simulate (hash included).
 # @param hash Hash of the instance.
 # @param d Day to simulate.
-def simulateInstance(threadId,instanceDirectory,hash,d):
+# @param opfMethod Method to perform optimal power flows. Values: None or "linearOpf".
+def simulateInstance(threadId,instanceDirectory,hash,d,opfMethod=None):
 	instanceDayDirectory="%s/%s"%(instanceDirectory,d)
 	resultFile='%s/result-%s-d%s.zip'%(instanceDayDirectory,hash,d)
 	if not os.path.isfile(resultFile):
+		# Prepare the command
+		cmd= ['python3', 'main.py', '--maxiterations', str(MAX_ITERATIONS), '-f', 'operationFolder-%s' % threadId, '-o',
+			  '../%s' % resultFile, '-t', str(CONVERGENCE_TOLERANCE)]
+		if opfMethod is not None and opfMethod.lower()=='linearopf':
+			cmd.append('-l')
+		cmd.append('../%s'%instanceDayDirectory)
+
 		# Launch the simulation
-		cmd=['python3', 'main.py', 
-			 '--maxiterations',str(MAX_ITERATIONS),
-			 '-f','operationFolder-%s'%threadId,
-			 '-o','../%s'%resultFile,
-			 '-t',str(CONVERGENCE_TOLERANCE),
-			 '../%s'%instanceDayDirectory]
 		process = subprocess.Popen(cmd, cwd=simulatorPath, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		processList[threadId]=process
+		log('Command launched with PID %s:\n\t%s'%(process.pid," ".join(cmd)))
 		returnCode=process.wait()
 		processList[threadId]=None
 		
@@ -140,7 +143,13 @@ def computationThread(job):
 		root=tree.getroot()
 		tag=root.find('days')
 		days=list(range(int(tag.find('start').text), int(tag.find('end').text)))
-	
+
+		# Obtain the opfMethod
+		opfMethod=None
+		tag=root.find('opfMethod')
+		if tag is not None:
+			opfMethod=tag.text.lower()
+
 		# Remove the error file if any exists
 		errorFile='%s/errors.xml'% instanceDirectory
 		if os.path.isfile(errorFile):
@@ -171,7 +180,7 @@ def computationThread(job):
 				
 			# Wait for an available thread and start it
 			threadNumber=availableThreads.get()
-			thread=threading.Thread(target=simulateInstance,args=[threadNumber,instanceDirectory,hash,d])
+			thread=threading.Thread(target=simulateInstance,args=[threadNumber,instanceDirectory,hash,d,opfMethod])
 			thread.daemon=True
 			thread.start()
 		
@@ -318,7 +327,6 @@ def interact(client,message):
 	client.log("Instance simulation "+hash+" added to the jobs.")
 	
 	# Polling of the client until the job is complete
-	#TODO For now, the client may disconnect without closing the socket and let the server run alone...
 	message=""
 	runDisconnected=False
 	while not runDisconnected or message is not None:
@@ -329,6 +337,7 @@ def interact(client,message):
 				client.log("Terminate request")
 				job.status=Job.ABORTED
 				terminateProcesses()
+			break
 		elif message.strip().lower()=="run disconnected":
 			runDisconnected=True;
 			client.log("Run disconnected")

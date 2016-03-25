@@ -11,7 +11,7 @@ from .ecbid import ECBid, ECObligationBid
 from . import options,tools
 
 ## Retailer agent.
-class Retailer(StateAgent,FSU,FSP,BRP):
+class Retailer(StateAgent, FSU, FSP, BRP):
 	## Name of the data file with the baselines.
 	baselinesDataFile='retailer-baselines.dat'
 	## Name of the data file with the submitted nodal total consumptions.
@@ -82,7 +82,7 @@ class Retailer(StateAgent,FSU,FSP,BRP):
 		self.writeFlexbilityActivationToProvide(data)
 		self.writeFlexbilityActivated(data)
 		
-		 # Move the data file to the operation folder
+		# Move the data file to the operation folder
 		if options.COPY:
 			tools.safeCopy(self._dataFile,options.FOLDER+'/retailer.dat')
 		else: # Rename instead of copy if debug
@@ -194,7 +194,10 @@ class Retailer(StateAgent,FSU,FSP,BRP):
 						b.min[t]=0
 					elif b.max[t] < options.EPS:
 						b.max[t]=0
-				b.reservationCost=max(options.EPS,((totalVolume-obligations*2*T)/totalVolume)*totalReservationCost)
+				if totalVolume <= options.EPS:
+					b.reservationCost=options.EPS
+				else:
+					b.reservationCost=max(options.EPS,((totalVolume-obligations*2*T)/totalVolume)*totalReservationCost)
 				b.dsoReservationCost=b.reservationCost
 				flexibilityPlatform.registerECBid(b,data)
 		
@@ -272,29 +275,34 @@ class Retailer(StateAgent,FSU,FSP,BRP):
 			while row[0].startswith(options.COMMENT_CHAR):
 				row=next(csvReader)
 			for e in row:
-				self.nodes.append(int(e))	
-	
+				self.nodes.append(int(e))
+
+			# Initialize access ranges
+			for n in self.nodes:
+				data.personal[self.name]['k'][n] = 0
+				data.personal[self.name]['K'][n] = 0
+
 			# Min and max consumptions 
 			for n in self.nodes:
-				data.personal[self.name]['k'][n]=0.0
-				data.personal[self.name]['K'][n]=0.0
 				for t in range(T):
-					row=[options.COMMENT_CHAR]
+					row = [options.COMMENT_CHAR]
 					while row[0].startswith(options.COMMENT_CHAR):
-						row=next(csvReader)
+						row = next(csvReader)
 
 					if accessBoundsComputation is None or accessBoundsComputation.lower() != "installed":
-						data.personal[self.name]['k'][n]=min(data.personal[self.name]['k'][n], float(row[2]))
-						data.personal[self.name]['K'][n]=max(data.personal[self.name]['K'][n], float(row[3]))
+						nIndex = int(row[0])
+						data.personal[self.name]['k'][nIndex] = min(data.personal[self.name]['k'][nIndex], float(row[2]))
+						data.personal[self.name]['K'][nIndex] = max(data.personal[self.name]['K'][nIndex], float(row[3]))
 			
 			# Get the installed capacity
 			for n in self.nodes:
-				row=[options.COMMENT_CHAR]
+				row = [options.COMMENT_CHAR]
 				while row[0].startswith(options.COMMENT_CHAR):
-					row=next(csvReader)
+					row = next(csvReader)
 				if accessBoundsComputation is not None and accessBoundsComputation.lower() in ["installed","periodic"]:
-					data.personal[self.name]['k'][n]=float(row[2])
-					data.personal[self.name]['K'][n]=float(row[3])
+					nIndex = int(row[0])
+					data.personal[self.name]['k'][nIndex] = float(row[2])
+					data.personal[self.name]['K'][nIndex] = float(row[3])
 
 			# Get the external imbalance
 			for t in range(T):
@@ -312,8 +320,6 @@ class Retailer(StateAgent,FSU,FSP,BRP):
 	# @param data Data.
 	# @return XML data string.
 	def xmlData(self,data):
-		T=data.general['T']
-		
 		s='\t<element id="%s" name="%s">\n'%(self.name,self.name)
 		s+='\t\t<data id="costs">%s</data>\n'%data.personal[self.name]['costs'][0]
 			

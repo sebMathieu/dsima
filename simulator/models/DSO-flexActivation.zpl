@@ -36,7 +36,7 @@ param mF[Fs*Ts] := read "acceptedFlex.dat" as "<1n,2n> 3n" skip (1+B+F) use (F*T
 param MF[Fs*Ts] := read "acceptedFlex.dat" as "<1n,2n> 4n" skip (1+B+F) use (F*T) comment "#";
 
 # Variables
-var f[Ls*Ts] >= -infinity;
+var f[<line,t> in Ls*Ts] >= -C[line] <= C[line];
 var z[Ns*Ts] binary;
 var I[Ts] >= -infinity;
 var IP[Ts] >=0;
@@ -66,14 +66,6 @@ subto TrippingCostProductionDefinition:
 subto TrippingCostConsumptionDefinition:
 	forall <n,t> in Ns*Ts :
 		trippingCost[n,t]>=z[n,t]*piTd*dt*(-p[n,t]);
-
-subto LineCapaUp:
-	forall <line,t> in Ls*Ts : 
-		f[line,t] <= C[line];
-
-subto LineCapaDown:
-	forall <line,t> in Ls*Ts : 
-		-C[line] <= f[line,t];
 
 subto FlexActivation:
 	forall <n,t> in N0*Ts :
